@@ -1,0 +1,13 @@
+# framework / CORS
+flask==3.0.3
+flask-cors==4.0.1
+#env loader
+python-dotenv==1.0.1
+# hzttp clietn calls
+requests==2.32.3
+#sentence fluid? transformer as k walter about mini for leightweight and speed
+
+#strips html tags for KB CSV file for model 
+beautifulsoup4==4.12.3
+#vector search, not looking for exact string matching
+faiss-cpu==1.8.0post1
