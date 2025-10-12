@@ -21421,26 +21421,26 @@ The user will see...<br>
 <p>By keeping all of this organized and accessible, Maintenance History helps you stay on top of property care and ensures nothing slips through the cracks.</p>","Maintenance","Maintenance","Status,Work Order,Work Order History,history,maintenance,maintenance history,property history,property work order,property work order history,work order status","2025-10-01T18:25:31.423Z","PUBLISHED","false"
 "Rentvine Knowledge Base","How to Create a Work Order Template","This article will go over the steps on how to create a work order template within the Rentvine system.  ","en","https://help.rentvine.com/how-to-create-a-work-order-template","<ul>
 <li>
-<p>Work Order templates can be essential in your daily workflow. This helps autofill certain fields and makes creating a work order much easier for your team.<br><br><br></p>
+<p>Work Order templates can be essential in your daily workflow. This helps autofill certain fields and makes creating a work order much easier for your team.</p>
 </li>
-<li>To create a new Work Order&nbsp;Template click the&nbsp;<strong>Maintenance</strong>&nbsp;tab &gt; click&nbsp;<strong>Work Orders</strong> &gt; click the<strong> Template </strong>tab&gt;and click the green button labeled <strong>Work Order Template</strong><strong><br><br>[pics]</strong></li>
-<li>Here you can add details to the work order project such as:<br>
+<li>To create a new Work Order Template, click the&nbsp;<strong>Maintenance</strong>&nbsp;tab &gt; click&nbsp;<strong>Work Orders</strong> &gt; click the<strong> Template </strong>tab&gt;and click the green button labeled <strong>Work Order Template</strong><strong><br><br><img class=""hs-image-align-none"" height=""1740"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-42-18%E2%80%AFAM-png.png"" width=""3438"" loading=""lazy""><br><br><img class=""hs-image-align-none"" height=""1740"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-42-48%E2%80%AFAM-png.png"" width=""3438"" loading=""lazy""><br><br></strong></li>
+<li>Here you can add details to the work order project, such as:<br>
 <ul>
-<li><strong>Work Order Project Template -</strong> You can build off a previously created work Order template</li>
-<li><strong>Name -&nbsp;</strong></li>
-<li><strong>Description -</strong></li>
-<li><strong>Vendor Information -&nbsp;</strong></li>
-<li><strong>Instructions -&nbsp;</strong></li>
-<li><strong>Priority -</strong></li>
-<li><strong>Assignee -</strong></li>
-<li><strong>Owner Approved Toggle -&nbsp;</strong></li>
-<li><strong>Publish With Owner / Tenant -&nbsp;</strong></li>
+<li><strong>Work Order Project Template -</strong> You can build off a previously created work Order template<br><br><img class=""hs-image-align-none"" height=""1290"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-43-42%E2%80%AFAM-png.png"" width=""3358"" loading=""lazy""></li>
+<li><strong>Name (required) -&nbsp;</strong>This will be the name of the Template itself</li>
+<li><strong>Description (required) -&nbsp;</strong>A brief description of the work order&nbsp;</li>
+<li><strong>Vendor Information (required) -&nbsp;</strong>Allows you to select a Maintenance Category, the specific Vendor, and whether this type of Work Order Template will require resident access or not<br><br><img class=""hs-image-align-none"" height=""1380"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-44-07%E2%80%AFAM-png.png"" width=""3430"" loading=""lazy""></li>
+<li><strong>Instructions -&nbsp;</strong>Additional instructions for the vendor to see only</li>
+<li><strong>Priority -&nbsp;</strong>Select the severity of the work order<br><br><img class=""hs-image-align-none"" height=""710"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-44-22%E2%80%AFAM-png.png"" width=""2788"" loading=""lazy""></li>
+<li><strong>Assignee -&nbsp;</strong>Select the user Assignee for the work order</li>
+<li><strong>Owner Approved Toggle -&nbsp;</strong>Toggle if this will always be Owner Approved or not when using this template</li>
+<li><strong>Publish With Owner / Tenant -&nbsp;</strong>Toggle if this work order template will always be published to the Owner or Tenants portal when being used</li>
 </ul>
 </li>
-</ul>","","","","2025-10-06T20:37:54.581Z","DRAFT","false"
-"Rentvine Knowledge Base","Introduction to Tenant Statements","Learn how to generate statements for you Tenants. Give them financial breakdowns as well as include maintenance break downs from their lease.Within this article, you will learn how to generate tenant statements, format these statements with our new 
-","en","https://help.rentvine.com/introduction-to-tenant-statements","<hr>
-<h3>&nbsp;</h3>
+<li>Once all required fields are filled out, you can now <strong>save</strong> the new template<br><br><img class=""hs-image-align-none"" height=""1740"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-45-14%E2%80%AFAM-png.png"" width=""3438"" loading=""lazy""><br><br></li>
+<li>Now, the next time you are creating a work order and click the <strong>Work Order Template</strong> dropdown, you will see the newly created template<br><br><img class=""hs-image-align-none"" height=""1740"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2011-47-26%E2%80%AFAM-png.png"" width=""3438"" loading=""lazy""></li>
+</ul>","Maintenance","Maintenance","Work Order,adding template,maintenance,order,template,templates,work,work order template","2025-10-07T15:51:02.746Z","PUBLISHED","false"
+"Rentvine Knowledge Base","Introduction to Tenant Statements","How to Generate and Format Tenant Statements with Financial and Maintenance Breakdowns","en","https://help.rentvine.com/introduction-to-tenant-statements","<hr>
 <h4>Within this article, you will learn how to generate tenant statements, format these statements with our new Tenant Statement Settings, and publish these statements for your tenants.</h4>
 <h4>&nbsp;</h4>
 <h4>Tenant statements can be formatted as you want using the new Tenant Statement Settings.</h4>
@@ -21450,28 +21450,39 @@ The user will see...<br>
 <li>
 <p>Once in the setting page you can either select your current Tenant Statement or you can create a new statement setting.<br><br><img class=""hs-image-align-none"" height=""433"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%2011-15-40%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></p>
 </li>
-<li>When in the Statement Setting, there are three main categories you can adjust.<br>
-<p><strong>&nbsp; &nbsp; &nbsp;Summary </strong>- Give a summary of the tenant's financials for the statement period</p>
-<p><strong>&nbsp; &nbsp; &nbsp;Ledger </strong>-Give a breakdown of all increases and decreases to the tenant's lease ledger</p>
-<p><strong>&nbsp; &nbsp; &nbsp;Work Orders </strong>- Reflect any work orders that occurred during the statement period</p>
-<br><br></li>
-<li>To adjust the tenant statement, whether that is removing the page breaks or removing the summary, ledger, or work order section, you will want to select the <strong>ellipses</strong> at the top right of the page and select the <strong>edit</strong> option. You can also duplicate this statement setting or delete it from the setting page<br><br><br><img class=""hs-image-align-none"" height=""428"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%2011-17-32%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
+<li>When in the Statement Setting, there are three main categories you can adjust.
+<ol>
+<li>
+<p><strong>Summary </strong>- Give a summary of the tenant's financials for the statement period</p>
+</li>
+<li>
+<p><strong>Ledger </strong>-Give a breakdown of all increases and decreases to the tenant's lease ledger</p>
+</li>
+<li>
+<p><strong>Work Orders </strong>- Reflect any work orders that occurred during the statement period</p>
+</li>
 </ol>
-<p>&nbsp;</p>
+</li>
+<li>To adjust the tenant statement, whether that is removing the page breaks or removing the summary, ledger, or work order section, you will want to select the <strong>ellipses</strong> at the top right of the page and select the <strong>edit</strong> option. You can also duplicate this statement setting or delete it from the setting page</li>
+</ol>
+<p><img class=""hs-image-align-none"" height=""2054"" style=""height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%201-08-49%E2%80%AFPM-png.png"" width=""3840"" loading=""lazy""></p>
 <hr>
 <h3>&nbsp;</h3>
 <h3 style=""text-align: center;"">Generating Tenant Statements</h3>
 <p>&nbsp;</p>
-<ul>
-<li>In Rentvine, you can run Tenant Statements in two different ways.</li>
-</ul>
-<p style=""padding-left: 40px;""><strong>* Tenant Statement Batches</strong></p>
-<p style=""padding-left: 40px;""><strong>* Individual Tenant Statements</strong></p>
+<ol>
+<li>In Rentvine, you can run Tenant Statements in two different ways.
+<ol>
+<li><strong>Tenant Statement Batches</strong></li>
+<li><strong>Individual Tenant Statements</strong></li>
+</ol>
+</li>
+</ol>
 <h3 style=""text-align: center;"">Tenant Statement Batches</h3>
 <p>&nbsp;</p>
 <p><em><strong>To generate multiple tenant statements within a batch, as well as publish these statements to your tenants' portals for viewing, you will want to follow this workflow.</strong></em></p>
 <ol>
-<li>First, you will want to go to the leases page in Rentvine, where you will see the statement batches selection. In this page, you will be able to generate these tenant statement batches, as well as view previously generated batches for your tenants.<br><img class=""hs-image-align-none"" height=""418"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%2011-42-09%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
+<li>First, you will want to go to the leases page in Rentvine, where you will see the statement batches selection. In this page, you will be able to generate these tenant statement batches, as well as view previously generated batches for your tenants.<br><br><img class=""hs-image-align-none"" height=""418"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%2011-42-09%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
 <li>Once in the Statement Batch, you will have a few different settings to choose from to format this for your tenants.
 <ol>
 <li><strong data-start=""230"" data-end=""258"">Send From Last Statement</strong> – If you want all tenant statements to have uniform start and end dates, keep this toggle off. If instead you’d like the start date on tenant statements to be based on the end date of the tenant’s most recent statement, turn this toggle on.
@@ -21488,9 +21499,28 @@ The user will see...<br>
 <li>
 <p data-start=""2090"" data-end=""2285"">Finally, you’ll see a <strong data-start=""2112"" data-end=""2133"">Statement Message</strong> field. Here you can add a message that will appear on each tenant statement. You can include hotfields, and if you’d like, you can also use Snippets.</p>
 <p data-start=""2287"" data-end=""2316"">Click <strong data-start=""2293"" data-end=""2301"">Next</strong> to continue.</p>
-<br><img class=""hs-image-align-none"" height=""176"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%202-10-06%E2%80%AFPM-png.png"" width=""688"" loading=""lazy""><br><br></li>
+<br><img class=""hs-image-align-none"" height=""176"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-03%20at%202-10-06%E2%80%AFPM-png.png"" width=""688"" loading=""lazy""><br><br><br>
+<p><strong>Once Generated, you can view all previously generated statements within the lease in the statements section. From there you have the option to download these to your device, or delete if the statement is invalid or no longer needed.<br><br></strong></p>
+<p><strong><img class=""hs-image-align-none"" height=""414"" style=""width: 688px; height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-41-57%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></strong></p>
+<p>&nbsp;</p>
+</li>
 </ol>
 </li>
 </ol>
 <hr><br><br>
-<p>&nbsp;</p>","","","","2025-10-03T19:15:18.166Z","DRAFT","false"
+<h3 style=""text-align: center;"">Individual Tenant Statements on Lease</h3>
+<p><em><strong>If you are wanting to generate individual Tenant &nbsp;statements for your management company bookkeeping, you will want to follow this workflow.</strong></em></p>
+<ol>
+<li>First you will want to identify the lease that you are wanting to generate the statement for.<br><br><img class=""hs-image-align-none"" height=""477"" style=""width: 688px; height: auto;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-24-37%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""><br><br><br><br></li>
+<li>When in the lease page to generate a tenant statement, you will want to go to the <strong>Green Actions&gt;New Statement<br></strong><br><img class=""hs-image-align-none"" height=""399"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-53-09%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""><br><br><br><br><strong><img class=""hs-image-align-none"" height=""422"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-30-38%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></strong><br><strong><br></strong></li>
+<li>From that page you will want to select the statement setting as well as the time period you want to generate for your tenant and then select <strong>Save.<br></strong><br><strong><img class=""hs-image-align-none"" height=""371"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-31-23%E2%80%AFAM-png-1.png"" width=""688"" loading=""lazy""></strong><br><strong><br></strong></li>
+<li>Once you select save, your device will take some time to generate the statement preview for you, and will be broken down into three separate sections.
+<ol>
+<li><strong>Resident Statement-</strong>Overview of finances tied to the lease<br><br><img class=""hs-image-align-none"" height=""456"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-37-54%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
+<li><strong>Transactions-</strong> Full breakdown of all related charges and payments to the tenant within the selected statement period<br><br><img class=""hs-image-align-none"" height=""500"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-37-59%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
+<li><strong>Maintenance Summary-&nbsp;</strong>See all associated work orders started/completed within the statement period<br><br><img class=""hs-image-align-none"" height=""501"" style=""height: auto; width: 688px;"" src=""https://9252921.fs1.hubspotusercontent-na1.net/hubfs/9252921/Screenshot%202025-10-07%20at%2010-38-05%E2%80%AFAM-png.png"" width=""688"" loading=""lazy""></li>
+</ol>
+</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>","Leases","Lease Details","statement,statement settings,statements,tenant statment,tenants","2025-10-07T19:53:23.400Z","PUBLISHED","false"
