@@ -3,7 +3,7 @@ import json
 
 # Step 1: Query your app's API
 response = requests.get(
-    "https://your-api.com/endpoint",
+    "https://123pm.rentvine.com/api/manager/properties/596",
     auth=("your_username", "your_password")
 )
 app_response = requests.get(app_api_url)
