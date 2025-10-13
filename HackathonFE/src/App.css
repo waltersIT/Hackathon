@@ -1,3 +1,14 @@
+:root {
+  --rv-green: #16a34a;   /* Rentvine green? */
+  --rv-black: #0b0f14;   
+  --rv-white: #ffffff;
+  --rv-gray-50: #f9fafb;
+  --rv-gray-100: #f3f4f6;
+  --rv-gray-200: #e5e7eb;
+  --rv-gray-500: #6b7280;
+  --rv-sky-100: #e0f2fe;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +50,142 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Vinny idget */
+.vinny-card {
+  position: fixed; right: 24px; bottom: 96px;
+  width: 380px;
+  background: var(--rv-white);
+  border: 1px solid var(--rv-gray-200);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  overflow: hidden;
+  display: grid; grid-template-rows: auto 1fr auto;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  opacity: 1;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 2147483600; 
+}
+
+/* header*/
+.vinny-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px;
+  background: var(--rv-black) !important;
+  color: var(--rv-white);
+}
+.vinny-id { display: flex; align-items: center; gap: 8px; }
+.vinny-avatar { font-size: 18px; }
+.vinny-header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.vinny-pill {
+  font-size: 12px; padding: 2px 8px; border: 1px solid rgba(255,255,255,.4);
+  border-radius: 999px; opacity: .9;
+}
+.vinny-close {
+  background: transparent; color: var(--rv-white); border: none; font-size: 18px; cursor: pointer;
+}
+
+/* Chat Area!! */
+.vinny-body {
+  height: 290px;
+  overflow: auto;
+  padding: 18px;
+  background: var(--rv-white);
+  color: #111827;
+}
+.vinny-empty { color: var(--rv-gray-500); font-size: 13px; }
+.vinny-row { margin: 6px 0; display: flex; }
+.vinny-row.left { justify-content: flex-start; }
+.vinny-row.right { justify-content: flex-end; }
+/* chat bubbles */
+.vinny-bubble.assistant {
+  background: var(--rv-gray-100, #f3f4f6);
+  color: #111827;
+  border-radius: 20px;     /* rounder? */
+  padding: 10px 14px;      /* adjust padding of text in bubble */
+  line-height: 1.4;        /* less compressed text */
+  max-width: 85%;          
+}
+.vinny-bubble.user {
+  background: var(--rv-sky-100, #e0f2fe);
+  color: #0b0f14;
+  border-radius: 20px;     /* rounder */
+  padding: 10px 14px;      /* extra breathing room for text */
+  line-height: 1.4;
+  max-width: 85%;
+}
+
+
+.vinny-composer {
+  display: flex; gap: 8px; padding: 12px;
+  border-top: 1px solid var(--rv-gray-200);
+  background: var(--rv-white);
+}
+.vinny-input {
+  flex: 1; padding: 8px 10px; border: 1px solid var(--rv-gray-200); border-radius: 10px; font-size: 14px;
+}
+.vinny-send {
+  padding: 8px 12px; border-radius: 10px; background: var(--rv-green); color: var(--rv-white);
+  border: none; cursor: pointer; font-weight: 600;
+}
+.vinny-send:disabled { opacity: .6; cursor: default; }
+
+/* launcher / floating icon */
+.vinny-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--rv-white);
+  color: var(--rv-black);
+  border: 2px solid var(--rv-green);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  display: grid; place-items: center;
+  z-index: 2147483647; /* overlay on everything*/
+}
+.vinny-fab:active { transform: scale(.96); }
+.vinny-fab-img {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  object-position: 20% center; /* tweak to center vinny */
+  transform: translateX(-8px);
+}
+
+/*responsive */
+@media (max-width: 600px) {
+  .vinny-card {
+    width: min(92vw, 380px);
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(84px, env(safe-area-inset-bottom));
+    border-radius: 14px;
+  }
+  .vinny-body { height: 50vh; } /* tallr chat on phones */
+  .vinny-send { padding: 10px 14px; }
+}
+
+/* header gif */
+.vinny-logo {
+  width: 40px;
+  height: 40px;
+  max-width: 40px;      /* prevnet gif from overflowing */
+  max-height: 40px;     
+  border-radius: 50%;
+  object-fit: contain;
+  object-position: center;
+  display: inline-block;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.vinny-logo.busy {
+  animation: vinnyPulse 1s ease-in-out infinite;
+}
+@keyframes vinnyPulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.06); opacity: .95; }
+  100% { transform: scale(1);   opacity: 1; }
 }
