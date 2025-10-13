@@ -1,24 +1,31 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, request, jsonify
 import requests
 import json
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+# Load .env vars
 load_dotenv()
 
-# Get values from .env
 username = os.getenv("API_USERNAME")
 password = os.getenv("API_PASSWORD")
 base_url = os.getenv("API_URL")
 
-# Flask app setup
+# Flask app
 app = Flask(__name__)
+CORS(app)  # allow frontend requests (adjust origin if needed)
 
-@app.route("/", methods=["GET"])
-def index():
+@app.route("/api/query", methods=["POST"])
+def query():
     try:
-        # Step 1: Get data from your app's API
+        data = request.get_json()
+        question = data.get("question", "").strip()
+
+        if not question:
+            return jsonify({"error": "Missing question"}), 400
+
+        # Optional: query your app's API for context
         app_response = requests.get(
             f"{base_url}/properties/611",
             auth=(username, password)
@@ -27,34 +34,38 @@ def index():
         app_data = app_response.json()
         formatted_data = json.dumps(app_data, indent=2)
 
-        # Step 2: Send to LM Studio
+        # Prepare message for LM Studio
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer lm-studio"
         }
 
-        data = {
+        payload = {
             "model": "gpt-oss-20b",
             "messages": [
                 {"role": "system", "content": "You are a helpful customer support assistant."},
-                {"role": "user", "content": f"""Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\nWhy was the user charged twice this month?"""}
+                {"role": "user", "content": f"""Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\n{question}"""}
             ],
             "temperature": 0.5
         }
 
-        lm_response = requests.post(lm_studio_url, headers=headers, json=data)
+        lm_response = requests.post(lm_studio_url, headers=headers, json=payload)
         lm_response.raise_for_status()
-        reply = lm_response.json()["choices"][0]["message"]["content"]
+        lm_data = lm_response.json()
+
+        reply = lm_data["choices"][0]["message"]["content"]
+
+        return jsonify({
+            "answer": reply,
+            "sources": [
+                {"title": "Late Fee Settings Overview", "url": "#"},
+                {"title": "Creating Custom Fields", "url": "#"}
+            ]
+        })
 
     except Exception as e:
-        reply = f"Error: {str(e)}"
-
-    # Simple template to show result
-    return render_template_string("""
-        <h1>LM Studio Response</h1>
-        <pre>{{ reply }}</pre>
-    """, reply=reply)
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

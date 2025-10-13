@@ -33,34 +33,20 @@ function draftKeyFor(pathname: string, sessionId: string) {
 }
 
 
-async function fakeChat(user: string) {
-  const canned: Record<string, string> = {
-    late:
-      "Late Fee Settings define how late fees are automatically applied (grace period, %, caps). Go to Settings → Accounting → Late Fees. [KB: Late Fee Settings]",
-    custom:
-      "Create a custom field in Settings → Custom Fields → Add. Choose type, category, and visibility. [KB: Creating Custom Fields]",
-    lease:
-      "The Leases page shows status, charges, and late-fee rules. Use filters to narrow by status. [KB: Lease]",
-  };
-  const key = Object.keys(canned).find((k) =>
-    user.toLowerCase().includes(k)
-  );
+async function realChat(user: string) {
+  const res = await fetch("http://localhost:5000/api/query", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: user }),
+  });
 
-  // afake latency to have it think, we can remove this tho, just thought it was cool and real like, but with the actual AI model, probably needs adjustment”
-  await new Promise((r) => setTimeout(r, 1800));
+  if (!res.ok) {
+    throw new Error("Failed to fetch response from backend");
+  }
 
-  return {
-    answer:
-      key
-        ? canned[key]
-        : "I can help with Rentvine pages & KB. Try asking about Late Fee Settings, Custom Fields, or Leases.",
-    sources: [
-      { title: "Late Fee Settings Overview", url: "#" },
-      { title: "Creating Custom Fields", url: "#" },
-      { title: "Lease Basics", url: "#" },
-    ],
-  };
+  return await res.json(); // should be { answer: "...", sources: [...] }
 }
+
 
 export default function VinnyWidget({
   onClose,
@@ -108,38 +94,38 @@ export default function VinnyWidget({
 
   /** send the user message and reply */
   async function ask() {
-    const q = input.trim();
-    if (!q) return;
+  const q = input.trim();
+  if (!q) return;
 
-    setInput("");
-    setBusy(true);
-    setHistory((h) => [...h, { role: "user", content: q }]);
+  setInput("");
+  setBusy(true);
+  setHistory((h) => [...h, { role: "user", content: q }]);
 
-    try {
-      // mock for FE):
-      const data = await fakeChat(q);
+  try {
+    const data = await realChat(q);
 
-      const cites = (data.sources || [])
-        .slice(0, 2)
-        .map((s: any) => `• ${s.title}`)
-        .join("\n");
+    const cites = (data.sources || [])
+      .slice(0, 2)
+      .map((s: any) => `• ${s.title}`)
+      .join("\n");
 
-      setHistory((h) => [
-        ...h,
-        {
-          role: "assistant",
-          content: data.answer + (cites ? `\n\nSources:\n${cites}` : ""),
-        },
-      ]);
-    } catch {
-      setHistory((h) => [
-        ...h,
-        { role: "assistant", content: "Error reaching Vinny." },
-      ]);
-    } finally {
-      setBusy(false);
-    }
+    setHistory((h) => [
+      ...h,
+      {
+        role: "assistant",
+        content: data.answer + (cites ? `\n\nSources:\n${cites}` : ""),
+      },
+    ]);
+  } catch (err) {
+    setHistory((h) => [
+      ...h,
+      { role: "assistant", content: "Error reaching Vinny." },
+    ]);
+  } finally {
+    setBusy(false);
   }
+}
+
 
   return (
     <div className="vinny-card" role="dialog"               aria-label="Vinny AI chat">
