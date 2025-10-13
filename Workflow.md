@@ -18,3 +18,10 @@ Key files:
 
 - KB CSV File
 - Screening files (FAQ)
+
+To run FE...
+
+1. cd HackathonFE
+2. npm i
+3. npm run dev
+4. go to link, http://localhost:5173/
