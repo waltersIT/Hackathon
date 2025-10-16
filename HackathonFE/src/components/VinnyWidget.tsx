@@ -102,6 +102,7 @@ export default function VinnyWidget({
   setHistory((h) => [...h, { role: "user", content: q }]);
 
   try {
+    console.log(q);
     const data = await realChat(q);
 
     const cites = (data.sources || [])
