@@ -119,12 +119,19 @@
 
 
 .vinny-composer {
-  display: flex; gap: 8px; padding: 12px;
+  display: flex; 
+  gap: 8px; 
+  padding: 12px;
   border-top: 1px solid var(--rv-gray-200);
   background: var(--rv-white);
 }
 .vinny-input {
-  flex: 1; padding: 8px 10px; border: 1px solid var(--rv-gray-200); border-radius: 10px; font-size: 14px;
+  flex: 1; 
+  padding: 8px 10px; 
+  border: 1px solid var(--rv-gray-200); 
+  border-radius: 10px; 
+  font-size: 14px;
+   background: var(--rv-gray-200); /* potentially can add for a more normal look */
 }
 .vinny-send {
   padding: 8px 12px; border-radius: 10px; background: var(--rv-green); color: var(--rv-white);
