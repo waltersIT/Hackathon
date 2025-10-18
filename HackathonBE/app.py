@@ -16,24 +16,32 @@ base_url = os.getenv("API_URL")
 app = Flask(__name__)
 CORS(app)  # allow frontend requests (adjust origin if needed)
 
+def getApiData(url):
+    #figure out how to parse this string
+    url = url.split("localhost:5173", 1)[1]  # returns "/portfolios/351" CHANGE TO RENTVINE.COM
+    print(url)
+    app_response = requests.get(
+            f"{base_url}{url}",
+            auth=(username, password)
+        )
+    app_response.raise_for_status()
+    app_data = app_response.json()
+    print(app_data)
+    formatted_data = json.dumps(app_data, indent=2)
+    return formatted_data
+
 @app.route("/api/query", methods=["POST"])
 def query():
     try:
         data = request.get_json()
         print(data)
         question = data.get("question", "").strip()
-
         if not question:
             return jsonify({"error": "Missing question"}), 400
         # Rentvine API call
-        app_response = requests.get(
-            f"{base_url}/properties/611",
-            auth=(username, password)
-        )
-        app_response.raise_for_status()
-        app_data = app_response.json()
-        print(app_data)
-        formatted_data = json.dumps(app_data, indent=2)
+        url = data.get("url", "").strip()
+        formatted_data = getApiData(url)
+        
 
         # Prepare message for LM Studio
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
@@ -43,7 +51,7 @@ def query():
         }
 
         payload = {
-            "model": "gpt-oss-20b",
+            "model": "gpt-oss-20b", #Having issues with loading model off of code
             "messages": [
                 {"role": "system", "content": "You are a helpful customer support assistant."},
                 {"role": "user", "content": f"""Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\n{question}"""}

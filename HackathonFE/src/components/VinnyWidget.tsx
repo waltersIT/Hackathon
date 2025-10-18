@@ -34,17 +34,22 @@ function draftKeyFor(pathname: string, sessionId: string) {
 
 
 async function realChat(user: string) {
+  
+  const currentAddress = window.location.href;//parse the url
+
   const res = await fetch("http://localhost:5000/api/query", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question: user }),
+    body: JSON.stringify({ 
+      question: user,
+      url: currentAddress
+    }),
   });
-
   if (!res.ok) {
     throw new Error("Failed to fetch response from backend");
   }
-
   return await res.json(); // should be { answer: "...", sources: [...] }
+
 }
 
 
@@ -114,7 +119,7 @@ export default function VinnyWidget({
       ...h,
       {
         role: "assistant",
-        content: data.answer + (cites ? `\n\nSources:\n${cites}` : ""),
+        content: data.answer + (cites ? `\n\nSources:\n${cites}` : ""),//might take this out and have it just organically list the sources in the response
       },
     ]);
   } catch (err) {
