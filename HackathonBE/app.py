@@ -20,18 +20,19 @@ CORS(app)  # allow frontend requests (adjust origin if needed)
 def query():
     try:
         data = request.get_json()
+        print(data)
         question = data.get("question", "").strip()
 
         if not question:
             return jsonify({"error": "Missing question"}), 400
-
-        # Optional: query your app's API for context
+        # Rentvine API call
         app_response = requests.get(
             f"{base_url}/properties/611",
             auth=(username, password)
         )
         app_response.raise_for_status()
         app_data = app_response.json()
+        print(app_data)
         formatted_data = json.dumps(app_data, indent=2)
 
         # Prepare message for LM Studio
