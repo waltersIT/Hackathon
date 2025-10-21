@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(
     app,
     resources={r"/api/*": {"origins": list(ALLOWED_ORIGINS)}},
-    methods=["POST", "OPTIONS"],
+    methods=["POST"],
     allow_headers=["Content-Type", "Authorization"],
 )
 
@@ -37,12 +37,8 @@ def getApiData(url):
     formatted_data = json.dumps(app_data, indent=2)
     return formatted_data
 
-@app.route("/api/query", methods=["POST", "OPTIONS"])
+@app.route("/api/query", methods=["POST"])
 def query():
-    if request.method == "OPTIONS":
-        # Let Flask-CORS add headers; just return 204 quickly.
-        return ("", 204)
-    
     try:
         print("Getting AI response")
 
