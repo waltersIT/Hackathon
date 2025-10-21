@@ -32,7 +32,10 @@ def getApiData(url):
 
 @app.route("/api/query", methods=["POST"])
 def query():
+    
     try:
+        print("Getting AI response")
+
         data = request.get_json()
         print(data)
         question = data.get("question", "").strip()
@@ -41,7 +44,8 @@ def query():
         # Rentvine API call
         url = data.get("url", "").strip()
         formatted_data = getApiData(url)
-        
+        print("API fetched successfully")
+
 
         # Prepare message for LM Studio
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
@@ -49,9 +53,8 @@ def query():
             "Content-Type": "application/json",
             "Authorization": "Bearer lm-studio"
         }
-
         payload = {
-            "model": "gpt-oss-20b", #Having issues with loading model off of code
+            "model": "openai/gpt-oss-20b", #Having issues with loading model off of code | look into changing engines
             "messages": [
                 {"role": "system", "content": "You are a helpful customer support assistant."},
                 {"role": "user", "content": f"""Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\n{question}"""}
@@ -64,12 +67,12 @@ def query():
         lm_data = lm_response.json()
 
         reply = lm_data["choices"][0]["message"]["content"]
+        print(reply)
 
         return jsonify({
-            "answer": reply,
+            "answer": "hello",
             "sources": [
-                {"title": "Late Fee Settings Overview", "url": "#"},
-                {"title": "Creating Custom Fields", "url": "#"}
+                {"title": "N/A", "url": "#"}
             ]
         })
 
