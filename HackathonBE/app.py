@@ -11,10 +11,17 @@ load_dotenv()
 username = os.getenv("API_USERNAME")
 password = os.getenv("API_PASSWORD")
 base_url = os.getenv("API_URL")
+ALLOWED_ORIGINS = {"http://localhost:5173", "http://127.0.0.1:5173"}
 
 # Flask app
 app = Flask(__name__)
-CORS(app)  # allow frontend requests (adjust origin if needed)
+
+CORS(
+    app,
+    resources={r"/api/*": {"origins": list(ALLOWED_ORIGINS)}},
+    methods=["POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+)
 
 def getApiData(url):
     #figure out how to parse this string
@@ -30,8 +37,11 @@ def getApiData(url):
     formatted_data = json.dumps(app_data, indent=2)
     return formatted_data
 
-@app.route("/api/query", methods=["POST"])
+@app.route("/api/query", methods=["POST", "OPTIONS"])
 def query():
+    if request.method == "OPTIONS":
+        # Let Flask-CORS add headers; just return 204 quickly.
+        return ("", 204)
     
     try:
         print("Getting AI response")
@@ -70,7 +80,7 @@ def query():
         print(reply)
 
         return jsonify({
-            "answer": "hello",
+            "answer": reply,
             "sources": [
                 {"title": "N/A", "url": "#"}
             ]
