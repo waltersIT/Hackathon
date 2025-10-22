@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 import json
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 import os
 
@@ -22,7 +22,7 @@ CORS(
     methods=["POST"],
     allow_headers=["Content-Type", "Authorization"],
 )
-
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def getApiData(url):
     #figure out how to parse this string
     url = url.split("localhost:5173", 1)[1]  # returns "/portfolios/351" CHANGE TO RENTVINE.COM
