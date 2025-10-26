@@ -1,6 +1,6 @@
 // VinnyLauncher = floating buttons that toggles VinnyWidget
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import VinnyWidget from "./VinnyWidget";
 import vinny from "../assets/vinny.png";
 

@@ -1,10 +1,5 @@
-import React from 'react'
-import VinnyLauncher from './components/VinnyLauncher'
-import VinnyWidget from './components/VinnyWidget'
 
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import VinnyLauncher from './components/VinnyLauncher'
 import './App.css'
 
 function App() {
@@ -16,7 +11,6 @@ function App() {
           Support Team for the Win!
         </p>
       </div>
-
       {/*launcher modal */}
       <VinnyLauncher />
     </div>

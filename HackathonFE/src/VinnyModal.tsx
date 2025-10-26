@@ -1,5 +1,0 @@
-function VinnyModal() {
-    return (<>
-    
-    </>);
-}

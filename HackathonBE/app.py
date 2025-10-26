@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, send_from_directory
 import requests
 import json
 from flask_cors import CORS
@@ -14,9 +14,13 @@ base_url = os.getenv("API_URL")
 
 # Frontend origins allowed to call your API
 ALLOWED_ORIGINS = {"http://localhost:5173", "http://127.0.0.1:5173"}
+FRONTEND_BUILD_DIR = os.path.join(os.path.dirname(__file__), "..", "hackathonfe", "dist")
 
 # Flask app
-app = Flask(__name__)
+app = Flask(__name__,
+    static_folder=FRONTEND_BUILD_DIR,
+    static_url_path="/"
+)
 
 # Enable CORS for /api/* routes; we'll still add precise headers below
 CORS(
@@ -102,6 +106,19 @@ def query():
         # Headers will still be added by @after_request
         return jsonify({"error": str(e)}), 500
 
+
+# 🟢 Serve React frontend for all non-API routes
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_react(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        # Serve static files (JS, CSS, images, etc.)
+        return send_from_directory(app.static_folder, path)
+    else:
+        # Serve the React index.html for any other route
+        return send_from_directory(app.static_folder, 'index.html')
+
+
+
 if __name__ == "__main__":
-    # please work 
-    app.run(host="127.0.0.1", port=5051, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)

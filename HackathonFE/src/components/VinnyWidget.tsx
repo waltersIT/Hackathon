@@ -1,6 +1,6 @@
 // VinnyWidget = the chat panelUI
 // Currently only mock, fake chats, when backend is ready swap fakeChat() for a real fetch() to `/api/query` 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import vinny from "../assets/vinny.png";
 import vinnyFinal from "../assets/vinnyFinal.gif";
@@ -37,7 +37,7 @@ async function realChat(user: string) {
   
   const currentAddress = window.location.href;//parse the url
 
-  const res = await fetch("http://localhost:5051/api/query", {
+  const res = await fetch("http://localhost:5000/api/query", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
