@@ -44,39 +44,7 @@ def getApiData(full_url: str):
     app_response = requests.get(f"{base_url}{path}", auth=(username, password))
     app_response.raise_for_status()
     return json.dumps(app_response.json(), indent=2)
-
-def run_app():
-    # Create the server, letting it pick any open port
-    server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
-    port = server.server_port                 # ✅ real assigned port
-    app.config["PORT"] = port
-    print(f"✅ Server running on http://127.0.0.1:{port}")
-    env_path = os.path.join(os.path.dirname(__name__), "..", "hackathonFE", ".env")
-    set_key(env_path, "VITE_BACKEND_PORT", str(port))\
-        
-    def serve():
-        server.serve_forever()                    # block here
     
-
-    # Run Flask in a background thread
-    thread = threading.Thread(target=serve)
-    thread.start()
-    
-    try:
-        while True:
-            cmd = input("Type 'stop' to stop the server: ").strip().lower()
-            if cmd == "stop":
-                print("🛑 Stopping server...")
-                server.shutdown()  # Gracefully stops serve_forever
-                thread.join()
-                print("✅ Server stopped")
-                break
-    except KeyboardInterrupt:
-        print("🛑 KeyboardInterrupt received, stopping server...")
-        server.shutdown()
-        thread.join()
-        print("✅ Server stopped")
-
 @app.after_request
 def add_cors_headers(response):
     """
@@ -161,4 +129,15 @@ def serve_react(path):
 
 
 if __name__ == "__main__":
-    run_app()
+    def run_app():
+        # Create the server, letting it pick any open port
+        server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
+        port = server.server_port                 # :white_check_mark: real assigned port
+        app.config["PORT"] = port
+        print(f":white_check_mark: Server running on http://127.0.0.1:{port}")
+        env_path = os.path.join(os.path.dirname(__name__), "..", "hackathonFE", ".env")
+        set_key(env_path, "VITE_BACKEND_PORT", str(port))
+        server.serve_forever()                    # block here
+    # Run Flask in a background thread
+    thread = threading.Thread(target=run_app)
+    thread.start()
