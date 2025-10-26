@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response, send_from_directory
 import requests
 import json
+from urllib.parse import urlparse
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
@@ -18,9 +19,10 @@ FRONTEND_BUILD_DIR = os.path.join(os.path.dirname(__file__), "..", "hackathonfe"
 
 # Flask app
 app = Flask(__name__,
-    static_folder=FRONTEND_BUILD_DIR,
-    static_url_path="/"
+    static_folder=FRONTEND_BUILD_DIR
 )
+
+
 
 # Enable CORS for /api/* routes; we'll still add precise headers below
 CORS(
@@ -30,14 +32,16 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-def getApiData(url):
+def getApiData(full_url: str):
     # Parse path off the frontend origin (adjust if you change your frontend host)
-    url = url.split("localhost:5173", 1)[1]  # returns "/portfolios/351"
-    app_response = requests.get(f"{base_url}{url}", auth=(username, password))
+    p = urlparse(full_url or "")
+    path = p.path or "/"
+    if p.query:
+        path += f"?{p.query}"
+    # now path is like "/portfolios/351?x=y"
+    app_response = requests.get(f"{base_url}{path}", auth=(username, password))
     app_response.raise_for_status()
-    app_data = app_response.json()
-    formatted_data = json.dumps(app_data, indent=2)
-    return formatted_data
+    return json.dumps(app_response.json(), indent=2)
 
 @app.after_request
 def add_cors_headers(response):
@@ -111,6 +115,7 @@ def query():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
+    
     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
         # Serve static files (JS, CSS, images, etc.)
         return send_from_directory(app.static_folder, path)
@@ -121,4 +126,17 @@ def serve_react(path):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    from werkzeug.serving import make_server
+    import threading
+
+    def run_app():
+        # Create the server, letting it pick any open port
+        server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
+        port = server.server_port                 # ✅ real assigned port
+        app.config["PORT"] = port
+        print(f"✅ Server running on http://127.0.0.1:{port}")
+        server.serve_forever()                    # block here
+
+    # Run Flask in a background thread
+    thread = threading.Thread(target=run_app)
+    thread.start()
