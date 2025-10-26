@@ -3,8 +3,10 @@ import requests
 import json
 from urllib.parse import urlparse
 from flask_cors import CORS
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 import os
+from werkzeug.serving import make_server
+import threading
 
 # Load .env vars
 load_dotenv()
@@ -112,6 +114,7 @@ def query():
 
 
 # 🟢 Serve React frontend for all non-API routes
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
@@ -126,16 +129,16 @@ def serve_react(path):
 
 
 if __name__ == "__main__":
-    from werkzeug.serving import make_server
-    import threading
-
     def run_app():
         # Create the server, letting it pick any open port
         server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
         port = server.server_port                 # ✅ real assigned port
         app.config["PORT"] = port
         print(f"✅ Server running on http://127.0.0.1:{port}")
+        env_path = os.path.join(os.path.dirname(__name__), "..", "hackathonFE", ".env")
+        set_key(env_path, "VITE_BACKEND_PORT", str(port))
         server.serve_forever()                    # block here
+        
 
     # Run Flask in a background thread
     thread = threading.Thread(target=run_app)

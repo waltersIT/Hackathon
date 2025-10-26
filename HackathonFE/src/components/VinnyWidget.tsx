@@ -16,6 +16,7 @@ type Msg = { role: "user" | "assistant"; content: string };
  In reuslt, should closing and opening widget keep messages and drafts in chat; new browser sessions start completely fresh and no chat history saved
 
  */
+
 function ensureSessionId(): string {
   const KEY = "vinny_session_id";
   let sid = sessionStorage.getItem(KEY);
@@ -36,8 +37,9 @@ function draftKeyFor(pathname: string, sessionId: string) {
 async function realChat(user: string) {
   
   const currentAddress = window.location.href;//parse the url
-
-  const res = await fetch("/api/query", {
+  const backendPort = import.meta.env.VITE_BACKEND_PORT;
+  console.log(backendPort);
+  const res = await fetch(`http://localhost:${backendPort}/api/query`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
