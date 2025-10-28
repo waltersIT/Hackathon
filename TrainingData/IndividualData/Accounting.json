@@ -1,0 +1,81 @@
+{
+  "Rentvine_Accounting_Training": {
+    "topics": [
+      {
+        "topic": "Escrow Mismatch",
+        "explanation": "An escrow mismatch occurs when the escrow amount and the security deposit amount on a portfolio do not match. This typically happens during a tenant move-in or move-out process. It can occur when a tenant makes a payment incorrectly or when a property manager refunds a tenant without completing a corresponding bank transfer. The escrow account should always mirror the security deposit balance for accurate reporting.",
+        "examples": [
+          "Tenant selects 'Make a Payment' instead of 'Pay Deposit', depositing all funds into the trust account instead of the security deposit account.",
+          "During move-out, a property manager refunds a tenant from the trust account but forgets to record a matching transfer between trust and escrow accounts.",
+          "Tenant paid deposit funds into the operating trust account instead of the escrow account, causing a portfolio diagnostic mismatch."
+        ],
+        "solution": "If the security deposit is greater than the escrow amount, transfer funds from the trust account to the security deposit account. If the security deposit is less, transfer funds from the security deposit account to the trust account. In Rentvine, go to Accounting > Banking > Pending Transfers to record or manually create the transfer. Also confirm the transfer is done in real life between the corresponding bank accounts.",
+        "best_practices": [
+          "Use the pending bank transfer option at the end of the move-out process to automatically track transfers.",
+          "Educate tenants to use the 'Pay Deposit' option when making their security deposit payment.",
+          "Regularly check the Diagnostics section to catch mismatches early and reconcile discrepancies promptly."
+        ]
+      },
+      {
+        "topic": "Security Deposits",
+        "explanation": "Rentvine tracks two key bank accounts for property managers: the Trust account and the Escrow account. The Escrow account holds tenant security deposits. The escrow balance should always match the total security deposits on the portfolio ledger. Discrepancies here create an escrow mismatch that must be corrected by verifying where the funds were received and performing a bank transfer as needed.",
+        "examples": [
+          "Tenant selects 'Make a Payment' instead of 'Pay Deposit', causing the receipt to deposit into the Trust account instead of Escrow.",
+          "Security deposit applied to repairs or charges during move-out without transferring the funds between accounts."
+        ],
+        "solution": "To resolve an escrow mismatch, navigate to Accounting > Banking > Actions > New Bank Transfer. Select the accounts based on the posting settings in the portfolio ledger. After recording the transfer in Rentvine, ensure that the actual bank transfer is completed outside the system as well. For move-outs or refunds, use the lease’s Green Actions menu to 'Move Out', 'Release Deposit', or 'Refund'.",
+        "best_practices": [
+          "Verify that escrow and security deposit balances match in Diagnostics regularly.",
+          "When refunding deposits, always confirm whether the deposit is management-held or owner-held before proceeding.",
+          "Unallocate and reallocate receipts properly when refunding or applying deposits to lease charges."
+        ]
+      },
+      {
+        "topic": "Suppressed Fee Mismatch",
+        "explanation": "A suppressed fee mismatch happens when fees that should have been charged to or collected from an owner are out of balance due to suppressed general ledger (GL) codes. These mismatches can be positive or negative and typically arise during post-management fee cycles, tenant reapplications, or owner offboarding.",
+        "examples": [
+          "Positive mismatch: Tenant paid a suppressed fee, but the owner has not yet been billed for it.",
+          "Negative mismatch: Owner was billed or charged for a suppressed fee that was later unallocated, causing the system to show that the property manager owes money to the owner.",
+          "An offboarded owner still shows unpaid suppressed fees in Diagnostics due to missed manual correction."
+        ],
+        "solution": "For positive mismatches, create or pay the missing bill by going to Accounting > Manager > Post Management Fees and billing the suppressed fee. For older mismatches, add a bill manually via Accounting > Money Out > Add Bill and pay it using the same GL code from Diagnostics. For negative mismatches, either transfer funds from the business operating account to the trust account and record an 'Other Receipt', or issue a vendor credit for the next billing cycle. For offboarded owners, use journal entries to reclassify balances between the suppressed GL and owner distribution or management fee expense accounts as appropriate.",
+        "best_practices": [
+          "Review the Diagnostics tab frequently to identify mismatches early before closing a month or owner account.",
+          "During offboarding, ensure suppressed fee mismatches are cleared before deactivating the owner’s portfolio.",
+          "Avoid modifying historical transactions tied to suppressed fees to prevent unintentional mismatches.",
+          "Check the Post Management Fees screen for previous periods to capture end-of-month transactions that might have been missed."
+        ]
+      },
+      {
+        "topic": "Money In and Money Out",
+        "explanation": "These two sections in Rentvine represent the flow of funds for all receipts, deposits, bills, and payments. 'Money In' lists all receipts such as tenant and owner payments, while 'Money Out' lists bills, invoices, credits, and payments to vendors or owners.",
+        "examples": [
+          "Locating a voided tenant or owner receipt under Money In.",
+          "Identifying missing vendor invoices under Money Out > Invoices.",
+          "Property manager unable to void ACH payments because they have already settled."
+        ],
+        "solution": "In 'Money In', use filters to search for voided or active receipts. In 'Money Out', review the Invoices tab for uploaded invoices that need to be converted to bills or rejected. Payments made by check or 'Other' can be voided; ACH payments cannot be voided once settled. Settlement status can be viewed by selecting 'View Settlement'. Use Linked Money In/Out to verify reconciliation. To void credits, select the credit, click the green Actions button, and choose 'Void'.",
+        "best_practices": [
+          "Use settlement details to confirm whether ACH transactions have cleared before voiding.",
+          "When uploading invoices, ensure PMs convert them to bills or reject them promptly to maintain clean workflows.",
+          "Regularly reconcile linked Money In and Money Out transactions to maintain accounting accuracy."
+        ]
+      },
+      {
+        "topic": "Management Fees",
+        "explanation": "Management fees in Rentvine determine how property management companies earn income from owners. These can be configured as Base or Additional (suppressed) management fees. Suppressed fees are excluded from owner statements until billed to the owner, ensuring accurate pass-through accounting.",
+        "examples": [
+          "Incorrect management fee setup under Property > Settings > Management Fees.",
+          "Additional fee not suppressed, causing double-billing or inclusion in owner payout.",
+          "Property manager needs to reset fee behavior after changing the fee settings."
+        ],
+        "solution": "To correct management fee setup, navigate to Property > Settings > Management Fees. Adjust the chart of account toggles for suppression. Perform a 'Master Reset' by reapplying the receipt, editing the charge to a temporary COA, saving, reverting to the correct suppressed COA, and then reapplying the receipt again. This ensures the management fee recalculates and applies correctly.",
+        "best_practices": [
+          "Distinguish between Base Management Fees and Additional (suppressed) Management Fees.",
+          "Perform a Master Reset whenever changing a chart of account associated with management fees.",
+          "Regularly verify that suppressed fee configurations align with company billing policies."
+        ]
+      }
+    ]
+  }
+}

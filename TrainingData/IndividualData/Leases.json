@@ -1,0 +1,93 @@
+{
+  "Rentvine_Leases_Training": {
+    "topics": [
+      {
+        "topic": "Lease Creation and Move-In Flow",
+        "explanation": "The Move-In flow in Rentvine is initiated from the green Actions button > Create Lease. The Move-In process involves setting up lease details, charges, and summary information before the tenant officially moves in. This flow is central to onboarding new tenants and ensuring that all rent, deposit, and recurring charges are configured correctly.",
+        "examples": [
+          "Property manager unsure where to add one-time move-in charges.",
+          "Tenant unable to pay rent because recurring charges were not activated correctly.",
+          "Lease start date mismatch between Move-In flow and recurring charge schedule."
+        ],
+        "solution": "During the Move-In flow, use the Monthly Charges section for recurring charges that begin on the 1st of the month. Use Advanced Recurring Charges to adjust start dates and frequency. One-time Move-In Charges should be configured on the Move-In page. Always review the Summary section on the right-hand side to verify when each charge will post before completing the setup.",
+        "best_practices": [
+          "Review the Move-In Summary page before finalizing to ensure all charge dates are accurate.",
+          "Use Advanced Recurring Charges to manage leases that start mid-month or require non-standard billing.",
+          "Confirm that all required tenant and property details are complete before clicking 'Create Lease'."
+        ]
+      },
+      {
+        "topic": "Charge Types and Configuration",
+        "explanation": "Charges on leases in Rentvine can include monthly rent, recurring charges, one-time move-in fees, and other custom items. These determine how and when tenants are billed. Proper charge setup ensures accurate accounting and avoids payment issues.",
+        "examples": [
+          "Tenant unable to make rent payment because charge start date is set incorrectly.",
+          "Recurring rent charge not posting on time due to misconfigured frequency.",
+          "One-time move-in fee not appearing on the tenant ledger."
+        ],
+        "solution": "Use Monthly Charges for rent that starts on the 1st. Use Advanced Recurring Charges to adjust date and frequency for other billing cycles. Move-In Charges should be set for one-time payments like security deposits or pet fees. The Summary panel will display the posting schedule for all configured charges.",
+        "best_practices": [
+          "Clearly differentiate between recurring and one-time charges.",
+          "Review charge frequency and start dates to ensure billing aligns with the lease start date.",
+          "Verify that all charges appear correctly in the Summary before finalizing the lease."
+        ]
+      },
+      {
+        "topic": "Allowed Payment Amount Settings",
+        "explanation": "The 'Overridden Allowed Payment Amount' setting determines whether tenants can make partial payments. This setting directly affects the tenant's ability to pay rent, deposits, or other charges.",
+        "examples": [
+          "Tenant reports they cannot make a partial rent payment.",
+          "Tenant cannot submit deposit payment because system only allows full payment."
+        ],
+        "solution": "If the 'Overridden Allowed Payment Amount' is set to 'Full Amount Only', tenants cannot make partial payments. To allow them, enable the toggle and set it to 'Any Amount'.",
+        "best_practices": [
+          "Default to 'Any Amount' unless the company’s policy requires full payments only.",
+          "Communicate payment expectations clearly to tenants during lease signing.",
+          "Verify this setting before escalating tenant payment issues."
+        ]
+      },
+      {
+        "topic": "Late Fee and NSF Fee Settings",
+        "explanation": "Late fees and NSF (Non-Sufficient Funds) fees are managed within lease settings. These charges apply when tenants miss payment deadlines or when a payment bounces.",
+        "examples": [
+          "Tenant charged incorrect late fee due to misconfigured settings.",
+          "Bounced payment fee not appearing on the ledger.",
+          "Property manager needs to void an NSF fee."
+        ],
+        "solution": "The 'Late Fee Setting' controls when and how late fees are applied. The NSF amount defines the fee charged for returned payments. To void an NSF fee, open the tenant’s transactions, locate the charge, and select 'Void'.",
+        "best_practices": [
+          "Verify Late Fee and NSF configurations during lease setup to prevent billing errors.",
+          "Inform tenants about late fee and NSF policies during move-in.",
+          "If voiding an NSF fee, document the reason for record-keeping."
+        ]
+      },
+      {
+        "topic": "Tenant Past Due Notices",
+        "explanation": "Tenant Past Due Notices are automated email notifications sent when unpaid charges exist on a tenant’s account. These help maintain communication and reduce delinquencies.",
+        "examples": [
+          "Property manager wants to enable automatic email notices for unpaid rent.",
+          "Tenants not receiving past due notifications."
+        ],
+        "solution": "In the lease settings, toggle 'Tenant Past Due Notices' to 'Yes' to enable automatic email alerts. The system will send notices whenever unpaid charges remain on the tenant ledger.",
+        "best_practices": [
+          "Keep this feature enabled to proactively communicate with tenants.",
+          "Ensure tenant contact information is accurate to prevent failed email deliveries.",
+          "Periodically review lease settings to confirm notice functionality remains active."
+        ]
+      },
+      {
+        "topic": "Undeposited Funds",
+        "explanation": "Undeposited funds occur when tenant receipts are recorded but not yet deposited. These appear in the 'Undeposited' section of the Portfolio Ledger and may result from pending settlements or manually recorded receipts.",
+        "examples": [
+          "Tenant payment shows as received but not reflected in the bank balance.",
+          "Portfolio shows undeposited funds after several receipts were entered manually."
+        ],
+        "solution": "Go to Reports > Tenant Receipts and filter by 'Deposited: No'. Review each transaction. If it says 'Pending Settlement', wait for completion. If not pending and not deposited, open the receipt, click the rocket ship icon, and select 'Record Deposit'. This will clear undeposited balances from the ledger.",
+        "best_practices": [
+          "Regularly monitor undeposited funds to maintain ledger accuracy.",
+          "Always confirm settlement status before manually recording deposits.",
+          "Use the 'Record Deposit' feature promptly after confirming payments."
+        ]
+      }
+    ]
+  }
+}

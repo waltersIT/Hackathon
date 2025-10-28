@@ -1,0 +1,606 @@
+{
+  "Rentvine_AI_Training": {
+    "Rentvine_Accounting_Training": {
+      "topics": [
+        {
+          "topic": "Escrow Mismatch",
+          "explanation": "An escrow mismatch occurs when the escrow amount and the security deposit amount on a portfolio do not match. This typically happens during a tenant move-in or move-out process. It can occur when a tenant makes a payment incorrectly or when a property manager refunds a tenant without completing a corresponding bank transfer. The escrow account should always mirror the security deposit balance for accurate reporting.",
+          "examples": [
+            "Tenant selects 'Make a Payment' instead of 'Pay Deposit', depositing all funds into the trust account instead of the security deposit account.",
+            "During move-out, a property manager refunds a tenant from the trust account but forgets to record a matching transfer between trust and escrow accounts.",
+            "Tenant paid deposit funds into the operating trust account instead of the escrow account, causing a portfolio diagnostic mismatch."
+          ],
+          "solution": "If the security deposit is greater than the escrow amount, transfer funds from the trust account to the security deposit account. If the security deposit is less, transfer funds from the security deposit account to the trust account. In Rentvine, go to Accounting > Banking > Pending Transfers to record or manually create the transfer. Also confirm the transfer is done in real life between the corresponding bank accounts.",
+          "best_practices": [
+            "Use the pending bank transfer option at the end of the move-out process to automatically track transfers.",
+            "Educate tenants to use the 'Pay Deposit' option when making their security deposit payment.",
+            "Regularly check the Diagnostics section to catch mismatches early and reconcile discrepancies promptly."
+          ]
+        },
+        {
+          "topic": "Security Deposits",
+          "explanation": "Rentvine tracks two key bank accounts for property managers: the Trust account and the Escrow account. The Escrow account holds tenant security deposits. The escrow balance should always match the total security deposits on the portfolio ledger. Discrepancies here create an escrow mismatch that must be corrected by verifying where the funds were received and performing a bank transfer as needed.",
+          "examples": [
+            "Tenant selects 'Make a Payment' instead of 'Pay Deposit', causing the receipt to deposit into the Trust account instead of Escrow.",
+            "Security deposit applied to repairs or charges during move-out without transferring the funds between accounts."
+          ],
+          "solution": "To resolve an escrow mismatch, navigate to Accounting > Banking > Actions > New Bank Transfer. Select the accounts based on the posting settings in the portfolio ledger. After recording the transfer in Rentvine, ensure that the actual bank transfer is completed outside the system as well. For move-outs or refunds, use the lease\u2019s Green Actions menu to 'Move Out', 'Release Deposit', or 'Refund'.",
+          "best_practices": [
+            "Verify that escrow and security deposit balances match in Diagnostics regularly.",
+            "When refunding deposits, always confirm whether the deposit is management-held or owner-held before proceeding.",
+            "Unallocate and reallocate receipts properly when refunding or applying deposits to lease charges."
+          ]
+        },
+        {
+          "topic": "Suppressed Fee Mismatch",
+          "explanation": "A suppressed fee mismatch happens when fees that should have been charged to or collected from an owner are out of balance due to suppressed general ledger (GL) codes. These mismatches can be positive or negative and typically arise during post-management fee cycles, tenant reapplications, or owner offboarding.",
+          "examples": [
+            "Positive mismatch: Tenant paid a suppressed fee, but the owner has not yet been billed for it.",
+            "Negative mismatch: Owner was billed or charged for a suppressed fee that was later unallocated, causing the system to show that the property manager owes money to the owner.",
+            "An offboarded owner still shows unpaid suppressed fees in Diagnostics due to missed manual correction."
+          ],
+          "solution": "For positive mismatches, create or pay the missing bill by going to Accounting > Manager > Post Management Fees and billing the suppressed fee. For older mismatches, add a bill manually via Accounting > Money Out > Add Bill and pay it using the same GL code from Diagnostics. For negative mismatches, either transfer funds from the business operating account to the trust account and record an 'Other Receipt', or issue a vendor credit for the next billing cycle. For offboarded owners, use journal entries to reclassify balances between the suppressed GL and owner distribution or management fee expense accounts as appropriate.",
+          "best_practices": [
+            "Review the Diagnostics tab frequently to identify mismatches early before closing a month or owner account.",
+            "During offboarding, ensure suppressed fee mismatches are cleared before deactivating the owner\u2019s portfolio.",
+            "Avoid modifying historical transactions tied to suppressed fees to prevent unintentional mismatches.",
+            "Check the Post Management Fees screen for previous periods to capture end-of-month transactions that might have been missed."
+          ]
+        },
+        {
+          "topic": "Money In and Money Out",
+          "explanation": "These two sections in Rentvine represent the flow of funds for all receipts, deposits, bills, and payments. 'Money In' lists all receipts such as tenant and owner payments, while 'Money Out' lists bills, invoices, credits, and payments to vendors or owners.",
+          "examples": [
+            "Locating a voided tenant or owner receipt under Money In.",
+            "Identifying missing vendor invoices under Money Out > Invoices.",
+            "Property manager unable to void ACH payments because they have already settled."
+          ],
+          "solution": "In 'Money In', use filters to search for voided or active receipts. In 'Money Out', review the Invoices tab for uploaded invoices that need to be converted to bills or rejected. Payments made by check or 'Other' can be voided; ACH payments cannot be voided once settled. Settlement status can be viewed by selecting 'View Settlement'. Use Linked Money In/Out to verify reconciliation. To void credits, select the credit, click the green Actions button, and choose 'Void'.",
+          "best_practices": [
+            "Use settlement details to confirm whether ACH transactions have cleared before voiding.",
+            "When uploading invoices, ensure PMs convert them to bills or reject them promptly to maintain clean workflows.",
+            "Regularly reconcile linked Money In and Money Out transactions to maintain accounting accuracy."
+          ]
+        },
+        {
+          "topic": "Management Fees",
+          "explanation": "Management fees in Rentvine determine how property management companies earn income from owners. These can be configured as Base or Additional (suppressed) management fees. Suppressed fees are excluded from owner statements until billed to the owner, ensuring accurate pass-through accounting.",
+          "examples": [
+            "Incorrect management fee setup under Property > Settings > Management Fees.",
+            "Additional fee not suppressed, causing double-billing or inclusion in owner payout.",
+            "Property manager needs to reset fee behavior after changing the fee settings."
+          ],
+          "solution": "To correct management fee setup, navigate to Property > Settings > Management Fees. Adjust the chart of account toggles for suppression. Perform a 'Master Reset' by reapplying the receipt, editing the charge to a temporary COA, saving, reverting to the correct suppressed COA, and then reapplying the receipt again. This ensures the management fee recalculates and applies correctly.",
+          "best_practices": [
+            "Distinguish between Base Management Fees and Additional (suppressed) Management Fees.",
+            "Perform a Master Reset whenever changing a chart of account associated with management fees.",
+            "Regularly verify that suppressed fee configurations align with company billing policies."
+          ]
+        }
+      ]
+    },
+    "Rentvine_Contacts_Training": {
+      "topics": [
+        {
+          "topic": "Contacts Overview",
+          "explanation": "The Contacts tab in Rentvine is where users manage all contact types \u2014 tenants, owners, and vendors. Each contact type contains details such as communication preferences, linked portfolios or leases, and payment or tax information. Portal invitations for tenants, owners, and vendors are also managed here.",
+          "examples": [
+            "Creating a tenant contact to send a Rentvine portal invitation.",
+            "Creating a vendor contact and setting up payment preferences (check, eCheck, NACHA, or Other).",
+            "Creating an owner contact and linking the appropriate portfolio for owner distributions."
+          ],
+          "solution": "To manage or create a contact, navigate to the Contacts tab and choose Tenants, Owners, or Vendors. Populate the necessary details such as name, email, and linked items (leases or portfolios). To invite a contact to the portal, open their profile, scroll to the 'Invitations' box, and click 'Send Invitation'. The contact must accept the invitation email and register or sign in to their existing account.",
+          "best_practices": [
+            "Ensure all contact details are complete before sending invitations.",
+            "Use consistent email addresses for contacts associated with multiple records (leases, portfolios).",
+            "Confirm portal access completion by checking the 'Portal Access' box for an associated email address."
+          ]
+        },
+        {
+          "topic": "Sending Portal Invitations",
+          "explanation": "Portal invitations allow tenants, owners, and vendors to access their respective Rentvine portals. Invitations are sent from within each contact\u2019s profile under the 'Invitations' section.",
+          "examples": [
+            "Tenant unable to log in because no invitation was sent.",
+            "Owner unable to access their portal due to missing invitation link."
+          ],
+          "solution": "Open the contact under Contacts > Tenants, Owners, or Vendors. Scroll to the 'Invitations' box and click the blue 'Send Invitation' button. The recipient must open the email, click 'Accept', then 'Register' (or 'Sign In' if they already have an account).",
+          "best_practices": [
+            "Before resending an invitation, check if the contact already has portal access listed under 'Portal Access'.",
+            "Ensure that the email address under the contact is correct and active before sending invitations."
+          ]
+        },
+        {
+          "topic": "Owner Portal Access Issues",
+          "explanation": "Owners may report that they cannot see their portfolios or data in their Rentvine owner portal. This is often caused by the portfolio not being linked to the owner contact, or the owner having multiple contact profiles.",
+          "examples": [
+            "Owner reports they cannot see their portfolio in the owner portal.",
+            "Portfolio not appearing under the contact\u2019s 'Portfolios' section."
+          ],
+          "solution": "Go to Contacts > Owners, then search for the owner. Scroll down to the 'Portfolios' section to confirm the portfolio is listed. If missing, link the correct portfolio. If the owner has multiple contacts, confirm which one is linked to the correct portfolio. Instruct the owner to click the ellipsis (three dots) in their portal and select 'Switch Portfolios' or 'Switch Contacts' to access the correct one.",
+          "best_practices": [
+            "Ensure each owner has only one active contact record per portfolio.",
+            "Verify portfolios are linked correctly under each owner contact.",
+            "Encourage owners with multiple portfolios to use the 'Switch Portfolio' option in their portal to navigate."
+          ]
+        },
+        {
+          "topic": "Tenant Portal Access Issues",
+          "explanation": "Tenants may be unable to see their leases or login to their portal due to unlinked or deactivated contacts. Each tenant contact must be active and associated with at least one lease for proper portal functionality.",
+          "examples": [
+            "Tenant reports they cannot see their lease in their portal.",
+            "Tenant contact deactivated, causing loss of portal access."
+          ],
+          "solution": "Go to Contacts > Tenants, search for the tenant, and check the 'Leases' section. If no lease is shown, link the tenant to their active lease. If the contact is deactivated, remove the 'Active' filter to locate it, then reactivate. Instruct the tenant to click the ellipsis (three dots) in their portal and select 'Switch Leases' if they are tied to multiple leases.",
+          "best_practices": [
+            "Maintain one active contact per tenant to avoid confusion.",
+            "Use the same email address for tenants across multiple leases for seamless portal switching.",
+            "Regularly review Contacts > Tenants to ensure all active tenants are linked to active leases."
+          ]
+        },
+        {
+          "topic": "Vendor Contacts and Payments",
+          "explanation": "Vendor contacts in Rentvine store payment preferences, tax information, and communication history. Each vendor must have their payment type configured to receive payouts correctly through the system.",
+          "examples": [
+            "Vendor not receiving payment because payment method not set up.",
+            "Missing tax information for vendor contact."
+          ],
+          "solution": "Go to Contacts > Vendors and open the vendor profile. Verify that the payment method is set to check, eCheck, NACHA, or Other, and ensure tax details are entered under Tax Information. Use the 'Send Invitation' button to give the vendor access to their portal where they can view payments and invoices.",
+          "best_practices": [
+            "Ensure vendor tax information and payment details are completed before issuing payments.",
+            "Maintain consistent naming conventions for vendors to avoid duplicate records.",
+            "Educate vendors on how to access their portal for payment tracking and invoice submission."
+          ]
+        }
+      ]
+    },
+    "Rentvine_Leases_Training": {
+      "topics": [
+        {
+          "topic": "Lease Creation and Move-In Flow",
+          "explanation": "The Move-In flow in Rentvine is initiated from the green Actions button > Create Lease. The Move-In process involves setting up lease details, charges, and summary information before the tenant officially moves in. This flow is central to onboarding new tenants and ensuring that all rent, deposit, and recurring charges are configured correctly.",
+          "examples": [
+            "Property manager unsure where to add one-time move-in charges.",
+            "Tenant unable to pay rent because recurring charges were not activated correctly.",
+            "Lease start date mismatch between Move-In flow and recurring charge schedule."
+          ],
+          "solution": "During the Move-In flow, use the Monthly Charges section for recurring charges that begin on the 1st of the month. Use Advanced Recurring Charges to adjust start dates and frequency. One-time Move-In Charges should be configured on the Move-In page. Always review the Summary section on the right-hand side to verify when each charge will post before completing the setup.",
+          "best_practices": [
+            "Review the Move-In Summary page before finalizing to ensure all charge dates are accurate.",
+            "Use Advanced Recurring Charges to manage leases that start mid-month or require non-standard billing.",
+            "Confirm that all required tenant and property details are complete before clicking 'Create Lease'."
+          ]
+        },
+        {
+          "topic": "Charge Types and Configuration",
+          "explanation": "Charges on leases in Rentvine can include monthly rent, recurring charges, one-time move-in fees, and other custom items. These determine how and when tenants are billed. Proper charge setup ensures accurate accounting and avoids payment issues.",
+          "examples": [
+            "Tenant unable to make rent payment because charge start date is set incorrectly.",
+            "Recurring rent charge not posting on time due to misconfigured frequency.",
+            "One-time move-in fee not appearing on the tenant ledger."
+          ],
+          "solution": "Use Monthly Charges for rent that starts on the 1st. Use Advanced Recurring Charges to adjust date and frequency for other billing cycles. Move-In Charges should be set for one-time payments like security deposits or pet fees. The Summary panel will display the posting schedule for all configured charges.",
+          "best_practices": [
+            "Clearly differentiate between recurring and one-time charges.",
+            "Review charge frequency and start dates to ensure billing aligns with the lease start date.",
+            "Verify that all charges appear correctly in the Summary before finalizing the lease."
+          ]
+        },
+        {
+          "topic": "Allowed Payment Amount Settings",
+          "explanation": "The 'Overridden Allowed Payment Amount' setting determines whether tenants can make partial payments. This setting directly affects the tenant's ability to pay rent, deposits, or other charges.",
+          "examples": [
+            "Tenant reports they cannot make a partial rent payment.",
+            "Tenant cannot submit deposit payment because system only allows full payment."
+          ],
+          "solution": "If the 'Overridden Allowed Payment Amount' is set to 'Full Amount Only', tenants cannot make partial payments. To allow them, enable the toggle and set it to 'Any Amount'.",
+          "best_practices": [
+            "Default to 'Any Amount' unless the company\u2019s policy requires full payments only.",
+            "Communicate payment expectations clearly to tenants during lease signing.",
+            "Verify this setting before escalating tenant payment issues."
+          ]
+        },
+        {
+          "topic": "Late Fee and NSF Fee Settings",
+          "explanation": "Late fees and NSF (Non-Sufficient Funds) fees are managed within lease settings. These charges apply when tenants miss payment deadlines or when a payment bounces.",
+          "examples": [
+            "Tenant charged incorrect late fee due to misconfigured settings.",
+            "Bounced payment fee not appearing on the ledger.",
+            "Property manager needs to void an NSF fee."
+          ],
+          "solution": "The 'Late Fee Setting' controls when and how late fees are applied. The NSF amount defines the fee charged for returned payments. To void an NSF fee, open the tenant\u2019s transactions, locate the charge, and select 'Void'.",
+          "best_practices": [
+            "Verify Late Fee and NSF configurations during lease setup to prevent billing errors.",
+            "Inform tenants about late fee and NSF policies during move-in.",
+            "If voiding an NSF fee, document the reason for record-keeping."
+          ]
+        },
+        {
+          "topic": "Tenant Past Due Notices",
+          "explanation": "Tenant Past Due Notices are automated email notifications sent when unpaid charges exist on a tenant\u2019s account. These help maintain communication and reduce delinquencies.",
+          "examples": [
+            "Property manager wants to enable automatic email notices for unpaid rent.",
+            "Tenants not receiving past due notifications."
+          ],
+          "solution": "In the lease settings, toggle 'Tenant Past Due Notices' to 'Yes' to enable automatic email alerts. The system will send notices whenever unpaid charges remain on the tenant ledger.",
+          "best_practices": [
+            "Keep this feature enabled to proactively communicate with tenants.",
+            "Ensure tenant contact information is accurate to prevent failed email deliveries.",
+            "Periodically review lease settings to confirm notice functionality remains active."
+          ]
+        },
+        {
+          "topic": "Undeposited Funds",
+          "explanation": "Undeposited funds occur when tenant receipts are recorded but not yet deposited. These appear in the 'Undeposited' section of the Portfolio Ledger and may result from pending settlements or manually recorded receipts.",
+          "examples": [
+            "Tenant payment shows as received but not reflected in the bank balance.",
+            "Portfolio shows undeposited funds after several receipts were entered manually."
+          ],
+          "solution": "Go to Reports > Tenant Receipts and filter by 'Deposited: No'. Review each transaction. If it says 'Pending Settlement', wait for completion. If not pending and not deposited, open the receipt, click the rocket ship icon, and select 'Record Deposit'. This will clear undeposited balances from the ledger.",
+          "best_practices": [
+            "Regularly monitor undeposited funds to maintain ledger accuracy.",
+            "Always confirm settlement status before manually recording deposits.",
+            "Use the 'Record Deposit' feature promptly after confirming payments."
+          ]
+        }
+      ]
+    },
+    "Rentvine_Portfolios_Training": {
+      "topics": [
+        {
+          "topic": "Overview of Portfolios",
+          "explanation": "Portfolios in Rentvine organize properties and owners into accounting groups. Each portfolio contains an owner ledger that records income, expenses, distributions, contributions, and credits for all properties it contains. Rentvine operates on a portfolio-based accounting structure, allowing an owner to use funds from one property to cover expenses on another within the same portfolio if permissions allow.",
+          "key_points": [
+            "Each portfolio ledger includes lease transactions, bill payments, suppressed fees, and credits.",
+            "Bank transfers and transactions using asset chart of accounts do not appear in the ledger.",
+            "Owner contact details in the portfolio determine who receives payouts and tax reporting.",
+            "The Overdraft Override Amount allows an owner to pay bills or distributions even when the operating balance is low.",
+            "Disabling 'Balance Notices' stops automatic email notifications when balances go negative."
+          ]
+        },
+        {
+          "topic": "Portfolio Balances and Definitions",
+          "explanation": "Portfolio balances summarize the financial health of an owner's portfolio. Each balance type represents a specific subset of funds tracked in the accounting system.",
+          "definitions": [
+            {
+              "Operating Balance": "Funds currently available to pay bills or distribute to owners. It excludes funds tied to liabilities, reserves, or unsettled transactions."
+            },
+            {
+              "Cash Balance": "The total funds in the trust bank account for the portfolio, including unsettled or reserved funds."
+            },
+            {
+              "Escrow": "Tracks tenant security deposits held in separate escrow accounts."
+            },
+            {
+              "Security Deposits": "General ledger accounts designated for security deposit tracking across all active leases."
+            },
+            {
+              "Owner Held Deposits": "Deposits physically held by the owner rather than managed within Rentvine."
+            },
+            {
+              "Payables": "All unpaid bills awaiting payment within the portfolio."
+            },
+            {
+              "Credits": "Owner, vendor, or lease credits that can be applied to charges or bills."
+            },
+            {
+              "Receivables": "Outstanding tenant lease charges not yet paid."
+            },
+            {
+              "Work Order Estimate": "Projected costs tied to pending work orders."
+            },
+            {
+              "Liabilities": "Funds intentionally held back from the operating balance that require journal entries to move."
+            },
+            {
+              "Non-Held Liabilities": "Liabilities not deducted from the operating balance."
+            },
+            {
+              "Prepayment": "Funds recorded as prepaid rent or unallocated payments awaiting application."
+            },
+            {
+              "Undeposited": "Funds received but not yet deposited. These can be reviewed under Reports > Tenant Receipts with 'Deposited: No' filter."
+            },
+            {
+              "Undeposited Escrow": "Electronic escrow payments pending 3\u20135 day settlement."
+            },
+            {
+              "Reserve": "Emergency funds held back to prevent the operating balance from dropping below a minimum threshold."
+            }
+          ]
+        },
+        {
+          "topic": "Operating Balance and Cash Flow",
+          "explanation": "The operating balance is the key figure used by property managers to determine how much is available for disbursements and bill payments. Rentvine processes tenant payments through its payment gateway (Forte), allocates them to the proper portfolio accounts, and calculates the operating balance after liabilities and reserves.",
+          "workflow": [
+            "Tenant Payment \u2192 Rentvine Receives Funds \u2192 Allocated to Operating/Escrow \u2192 Property Manager Pays Bills/Owners",
+            "Only settled funds are included in the operating balance calculation."
+          ],
+          "best_practices": [
+            "Monitor operating balance daily before processing owner distributions.",
+            "Avoid recording transactions directly to asset accounts unless necessary, as they reduce visible operating funds.",
+            "Reconcile deposits promptly to keep balances accurate."
+          ]
+        },
+        {
+          "topic": "Reserves and Diagnostics",
+          "explanation": "Reserves act as a financial safeguard to ensure that a minimum balance remains available in the portfolio. The Diagnostics tab will flag portfolios with a 'Reserve Not Met' message if the operating balance drops below the required reserve level.",
+          "details": [
+            "The reserve amount is configured within each portfolio\u2019s settings.",
+            "If the operating balance falls below this amount, distributions and bill payments may be blocked until funds are replenished.",
+            "Additional funds can be added via owner contributions or incoming lease income."
+          ],
+          "best_practices": [
+            "Set realistic reserve thresholds per owner agreement.",
+            "Monitor diagnostics regularly to prevent reserve-related payment holds."
+          ]
+        },
+        {
+          "topic": "Escrow and Security Deposits",
+          "explanation": "The escrow and security deposit sections of a portfolio track tenant-held funds that are legally separate from operational income. Rentvine maintains a one-to-one relationship between escrow balances and security deposit charges.",
+          "common_issues": [
+            "Tenant accidentally pays a security deposit into the operating account instead of the escrow account.",
+            "Manager refunds or applies deposits without a matching bank transfer, creating a mismatch."
+          ],
+          "solution": "If the escrow and security deposit amounts differ, record a transfer between the appropriate accounts under Accounting > Banking > New Bank Transfer. Complete the equivalent transaction outside Rentvine in the actual bank accounts.",
+          "best_practices": [
+            "Educate tenants on using the 'Pay Deposit' button when making security deposit payments.",
+            "Check Diagnostics regularly for escrow mismatches to correct them early."
+          ]
+        },
+        {
+          "topic": "Owner and Tenant Statements",
+          "explanation": "Statements provide owners with a detailed record of portfolio activity. These include lease-level and property-level transactions, fees, and distributions.",
+          "key_details": [
+            "Preview statements via the green Actions button > New Statement.",
+            "To officially generate statements, go to Portfolios > Statement Batches.",
+            "Global Settings > Statements allows you to create or clone statement templates.",
+            "Enable or disable the 'Consolidate Units' option to adjust property-level visibility on the statement."
+          ],
+          "troubleshooting": [
+            "If an owner claims a bill or transaction is missing, clear the 'Date Posted' filter in the Bills section.",
+            "Mismatched totals between statements and reports usually indicate suppressed fee mismatches.",
+            "Statements do not post automatically; they must be manually submitted."
+          ],
+          "best_practices": [
+            "Standardize statement templates in Global Settings for consistent presentation.",
+            "Email statements to owners after batch generation or download them as PDFs."
+          ]
+        },
+        {
+          "topic": "Validated AI and Human Dialogue Corrections",
+          "validated_information": [
+            {
+              "question": "What is the operating balance of a portfolio?",
+              "ai_response": "The operating balance represents settled funds available for use within the trust account that are not tied up in liabilities, reserves, or asset accounts.",
+              "validation_status": "Confirmed correct by user and matches Rentvine portfolio documentation."
+            },
+            {
+              "question": "How do asset accounts affect the portfolio?",
+              "ai_response": "Asset accounts reduce the visible operating balance by holding funds for future use while still counting toward the total cash balance.",
+              "validation_status": "Confirmed correct by user and supported by internal Rentvine behavior."
+            },
+            {
+              "question": "What triggers the Reserve Not Met diagnostic?",
+              "ai_response": "When transactions reduce the operating balance below the defined reserve threshold, Rentvine flags this diagnostic alert.",
+              "validation_status": "Validated against portfolio diagnostic documentation."
+            },
+            {
+              "question": "What causes an escrow mismatch?",
+              "ai_response": "When tenant payments or refunds are processed through the wrong account, creating an imbalance between the escrow balance and total tracked security deposits.",
+              "validation_status": "Validated against Rentvine Escrow documentation."
+            }
+          ],
+          "excluded_responses": [
+            "Any AI-generated content referencing loans, capital investments, or external reconciliation not found in Rentvine materials."
+          ]
+        }
+      ]
+    },
+    "Rentvine_Screening_Training": {
+      "topics": [
+        {
+          "topic": "Application & Screening Workflow Overview",
+          "explanation": "End-to-end flow: Invite applicants \u2192 Applicant completes form (PII, income, rental history, ID) \u2192 Pays non-refundable fee \u2192 Screening initiated with selected partner \u2192 Results delivered to PM inside Rentvine.",
+          "examples": [
+            "Support walk-through of the high-level pipeline for a new PM.",
+            "Applicant asks what happens after they pay the application fee."
+          ],
+          "solution": "Guide PMs/applicants through the 5-step workflow and verify the chosen screening option (TransUnion, RentGrade, or Dynamic Mode via CRS) is correctly enabled.",
+          "best_practices": [
+            "Confirm the correct package is enabled before the PM runs screening.",
+            "Clarify that Rentvine is the platform; TU/CRS/Plaid provide data services."
+          ]
+        },
+        {
+          "topic": "Screening Options",
+          "explanation": "Three ways to screen in Rentvine.",
+          "examples": [
+            "PM deciding between TransUnion vs RentGrade vs CRS Dynamic Mode.",
+            "Customer wants fast setup without TU underwriting."
+          ],
+          "solution": "Explain tradeoffs: TransUnion (full credit + criminal + eviction; requires credentialing, typically 2\u20134 weeks), RentGrade (criminal + eviction + credit score range + RentGrade A/B/C/F + income-to-rent + SSN/name/address match; no full TU credit file; fast setup 1\u20132 days; sunsetting Oct 31, 2025), or CRS Dynamic Mode (credit/criminal/eviction \u00e0 la carte; flexible cost control; requires CRS credentialing).",
+          "best_practices": [
+            "Enable RentGrade during TU credentialing to avoid onboarding delays.",
+            "Use Dynamic Mode when PMs want per-applicant flexibility."
+          ],
+          "metadata": {
+            "transunion": {
+              "requires_credentialing_weeks": "2\u20134"
+            },
+            "rentgrade": {
+              "sunsets_on": "2025-10-31"
+            },
+            "dynamic_mode": {
+              "provider": "CRS"
+            }
+          }
+        },
+        {
+          "topic": "Fees, Settlements, and Banking",
+          "explanation": "Application & screening fees flow through Rentvine\u2019s Screening platform. Settlements use the **Business Operating Account** (not Trust). Batch schedule runs on the 11th and 25th; ACH payouts land on the 15th and last day of the month. Rentvine processing fee is $10; Plaid services are $5 each (Income or Identity).",
+          "examples": [
+            "PM sees $30\u2013$80 credits in bank and asks what they are (screening settlements).",
+            "PM needs to know which bank account is required for ACH setup."
+          ],
+          "solution": "Verify the Screening & Application Fee Settlements Authorization Form (via Rentsign) is completed with Business Operating Account details. Confirm fee timing and that deductions may occur if refunds exceed fees or fee<costs.",
+          "best_practices": [
+            "Reconcile using Payments/Settlements tab when customers ask about bank credits.",
+            "Remind PMs that Trust is for Financial platform; Business Operating is for Screening."
+          ],
+          "aliases": {
+            "Business Operating Account": [
+              "Operating (ACH) account for Screening"
+            ],
+            "Trust Account": [
+              "PM trust account (Financial platform)"
+            ]
+          }
+        },
+        {
+          "topic": "Plaid Income & Identity Verification",
+          "explanation": "Optional add-ons: Income (bank auth, up to 2 years history) and Identity (ID upload + selfie; anti-fraud checks). Applicants may opt out (FHA compliance).",
+          "examples": [
+            "Applicant cannot complete Plaid due to bank/device/network restrictions.",
+            "PM asks what the $5 charge is for."
+          ],
+          "solution": "If blocked, advise applicant to try a different device/network or proceed without Plaid (opt-out).",
+          "best_practices": [
+            "Set applicant expectations that some banks restrict third-party access.",
+            "Use Plaid Identity to mitigate fraud risk where feasible."
+          ]
+        },
+        {
+          "topic": "Credentialing (TransUnion & CRS)",
+          "explanation": "TransUnion credentialing typically takes 2\u20134 weeks depending on customer responsiveness. CRS credentialing usually 1\u201310 days.",
+          "examples": [
+            "Customer wants to screen immediately while TU is pending.",
+            "Customer asks about TU portal access."
+          ],
+          "solution": "Enable RentGrade during TU review so PMs can keep screening. TU portal is for Rentvine Support; customers use Rentvine to run reports. If TU declines, next steps depend on TU\u2019s decision.",
+          "best_practices": [
+            "Provide TU portal password reset steps when Support must push a stuck report.",
+            "Keep the screening team looped on membership issues."
+          ]
+        },
+        {
+          "topic": "Prospects Tab",
+          "explanation": "Tracks leads not yet applied; shows name, unit, last activity, status, and source. Statuses are system-assigned (New \u2192 Invitation Sent \u2192 Application Started \u2192 Application Submitted \u2192 Archived).",
+          "examples": [
+            "PM asks why only the Account Manager email receives prospect notifications.",
+            "PM wants to bulk-invite prospects."
+          ],
+          "solution": "Prospect notifications go to the email under Account Manager (Global Settings). Use Add Prospect or Send Invite; bulk invites supported.",
+          "best_practices": [
+            "Use filters for workflow visibility; defaults reset on re-entry.",
+            "Leverage email templates for efficient outreach."
+          ]
+        },
+        {
+          "topic": "Editing Applications & Common Errors",
+          "explanation": "Application errors frequently stem from special characters, extra spaces, or non-US address formatting.",
+          "examples": [
+            "Error after running a screening report due to punctuation in PII fields.",
+            "Applicant address outside the U.S. causing eviction error."
+          ],
+          "solution": "Open Application \u2192 View Applicant \u2192 Actions > Edit. Remove commas/periods/special characters/extra spaces. For non-US addresses, set it to the property being applied for and rerun. SSN changes are under Personal Information.",
+          "best_practices": [
+            "Audit PII formatting before running screening.",
+            "Apartment numbers: use unit field only; no 'apt' string; avoid PO Boxes.",
+            "If credit error persists, rerun ONLY credit (uncheck criminal/eviction) to avoid extra charges."
+          ]
+        },
+        {
+          "topic": "TransUnion Playbook (Partially Complete / Pending / Failed)",
+          "explanation": "Partially Complete = not all components returned. Credit is usually quick; criminal/eviction can require runners. Pending beyond a few minutes often indicates TU portal pull issues.",
+          "examples": [
+            "Criminal report past expected date.",
+            "Report stuck in Pending due to portal auth."
+          ],
+          "solution": [
+            "If criminal past due date: email Mariah.Ebersole@transunion.com and Adrena.Duran@transunion.com; CC screening@rentvine.com.",
+            "If Pending persists: someone with TU portal access should push it through; if still failing, escalate to screening.",
+            "Failed screening with 'MEMBER USERNAME/PASSWORD INVALID': email Mariah for password update, update TU creds in Rentvine Admin Screening, then run credit if only one option is available."
+          ],
+          "best_practices": [
+            "After TU password reset, open the failure email link twice if the first goes to dashboard.",
+            "Never run multiple packages for a PM\u2014only run when there\u2019s a single option.",
+            "Document resolution back to customer."
+          ]
+        },
+        {
+          "topic": "CRS Playbook (Dynamic Mode & Error Handling)",
+          "explanation": "CRS supports dynamic selection of Credit/Criminal/Eviction. Data sources: Credit via Equifax; Criminal/Eviction via CIC Nationwide.",
+          "examples": [
+            "Eviction error due to address formatting.",
+            "Criminal error with correct data\u2014likely backend/outage."
+          ],
+          "solution": [
+            "Eviction: ensure US address; remove special chars; check spaces; move unit numbers to unit field; avoid 'apt' text; no PO Boxes; use applying-property address if needed; verify the address is legitimate.",
+            "Criminal: verify DOB; if data is correct, escalate (backend or temporary outage).",
+            "Credit frozen: instruct applicant to unfreeze at Equifax, then wait 24 hours before re-running.",
+            "No credit data: if PDF shows 'frozen', follow freeze steps; otherwise send to Screening Team."
+          ],
+          "best_practices": [
+            "Escalate persistent CRS errors to support@crscreditapi.com via Screening Team.",
+            "Educate PMs on dynamic selection to control costs."
+          ]
+        },
+        {
+          "topic": "Notifications & Settings",
+          "explanation": "Application Submitted notifications are configured under Manager tab \u2192 Screening \u2192 Application Submitted; prospects notifications go to Account Manager email in Global Settings. Some application sections are required for TU integration; others can be disabled.",
+          "examples": [
+            "Customer not receiving Application Submitted emails.",
+            "PM asks to disable a section that TU requires."
+          ],
+          "solution": "Whitelist noreply@rentvine.com if emails are missing. In settings, edit fees/logos/verbiage; required sections cannot be disabled.",
+          "best_practices": [
+            "Use WYSIWYG with PNG/JPEG for branding.",
+            "Assign templates per property where needed."
+          ]
+        },
+        {
+          "topic": "Adverse Action Letters",
+          "explanation": "Adverse Action letters are preloaded and customizable. CRS also provides a template for denial/changes and bureau disclosures.",
+          "examples": [
+            "PM needs a denial letter template for a failed screening.",
+            "Compliance question about bureau contacts."
+          ],
+          "solution": "Use Rentvine letter templates or the CRS-provided template; include FCRA-required disclosures and bureau info where applicable.",
+          "best_practices": [
+            "Maintain standardized reasons lists and workflows.",
+            "Route screening disputes to TU or CRS; platform issues to Rentvine Screening Team."
+          ]
+        },
+        {
+          "topic": "Policies, KPIs, and Support Workflow",
+          "explanation": "Screening team process: route emails to Support; Go-Live emails direct new customers to support@rentvine.com; after-hours/weekends/holidays \u2014 urgent items ASAP, non-urgent next business day; use shared Slack channels for collaboration (no DMs).",
+          "examples": [
+            "Customer asks for a call; support gathers scope and schedules training if needed.",
+            "Analyst needs which Slack channel to search for app/screening topics."
+          ],
+          "solution": "Follow the documented routing and escalation policies; use Apps-screening-support and Rentvine-screening-app-dev Slack channels.",
+          "best_practices": [
+            "Use discretion on urgency; confirm scope before scheduling calls.",
+            "Ask questions if in doubt before sending external info."
+          ]
+        },
+        {
+          "topic": "FAQs & Region-Specific Notes",
+          "explanation": "Common Q&A to standardize guidance.",
+          "examples": [
+            "Difference between TU and RentGrade.",
+            "New York eviction search restriction."
+          ],
+          "solution": [
+            "TU vs RentGrade: both include criminal/eviction; TU requires credentialing for full credit report; RentGrade uses TU data via Rentvine credentialing but does not expose full credit file.",
+            "NY: eviction searches are restricted; only Credit + Criminal allowed (contact Screening Team for fees)."
+          ],
+          "best_practices": [
+            "Share KBAs/links with consistent wording.",
+            "When in doubt on pricing/packages, connect to Screening Team."
+          ]
+        }
+      ]
+    }
+  }
+}

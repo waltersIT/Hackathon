@@ -1,0 +1,198 @@
+{
+  "Rentvine_Screening_Training": {
+    "topics": [
+      {
+        "topic": "Application & Screening Workflow Overview",
+        "explanation": "End-to-end flow: Invite applicants → Applicant completes form (PII, income, rental history, ID) → Pays non-refundable fee → Screening initiated with selected partner → Results delivered to PM inside Rentvine.",
+        "examples": [
+          "Support walk-through of the high-level pipeline for a new PM.",
+          "Applicant asks what happens after they pay the application fee."
+        ],
+        "solution": "Guide PMs/applicants through the 5-step workflow and verify the chosen screening option (TransUnion, RentGrade, or Dynamic Mode via CRS) is correctly enabled.",
+        "best_practices": [
+          "Confirm the correct package is enabled before the PM runs screening.",
+          "Clarify that Rentvine is the platform; TU/CRS/Plaid provide data services."
+        ]
+      },
+      {
+        "topic": "Screening Options",
+        "explanation": "Three ways to screen in Rentvine.",
+        "examples": [
+          "PM deciding between TransUnion vs RentGrade vs CRS Dynamic Mode.",
+          "Customer wants fast setup without TU underwriting."
+        ],
+        "solution": "Explain tradeoffs: TransUnion (full credit + criminal + eviction; requires credentialing, typically 2–4 weeks), RentGrade (criminal + eviction + credit score range + RentGrade A/B/C/F + income-to-rent + SSN/name/address match; no full TU credit file; fast setup 1–2 days; sunsetting Oct 31, 2025), or CRS Dynamic Mode (credit/criminal/eviction à la carte; flexible cost control; requires CRS credentialing).",
+        "best_practices": [
+          "Enable RentGrade during TU credentialing to avoid onboarding delays.",
+          "Use Dynamic Mode when PMs want per-applicant flexibility."
+        ],
+        "metadata": {
+          "transunion": { "requires_credentialing_weeks": "2–4" },
+          "rentgrade": { "sunsets_on": "2025-10-31" },
+          "dynamic_mode": { "provider": "CRS" }
+        }
+      },
+      {
+        "topic": "Fees, Settlements, and Banking",
+        "explanation": "Application & screening fees flow through Rentvine’s Screening platform. Settlements use the **Business Operating Account** (not Trust). Batch schedule runs on the 11th and 25th; ACH payouts land on the 15th and last day of the month. Rentvine processing fee is $10; Plaid services are $5 each (Income or Identity).",
+        "examples": [
+          "PM sees $30–$80 credits in bank and asks what they are (screening settlements).",
+          "PM needs to know which bank account is required for ACH setup."
+        ],
+        "solution": "Verify the Screening & Application Fee Settlements Authorization Form (via Rentsign) is completed with Business Operating Account details. Confirm fee timing and that deductions may occur if refunds exceed fees or fee<costs.",
+        "best_practices": [
+          "Reconcile using Payments/Settlements tab when customers ask about bank credits.",
+          "Remind PMs that Trust is for Financial platform; Business Operating is for Screening."
+        ],
+        "aliases": {
+          "Business Operating Account": ["Operating (ACH) account for Screening"],
+          "Trust Account": ["PM trust account (Financial platform)"]
+        }
+      },
+      {
+        "topic": "Plaid Income & Identity Verification",
+        "explanation": "Optional add-ons: Income (bank auth, up to 2 years history) and Identity (ID upload + selfie; anti-fraud checks). Applicants may opt out (FHA compliance).",
+        "examples": [
+          "Applicant cannot complete Plaid due to bank/device/network restrictions.",
+          "PM asks what the $5 charge is for."
+        ],
+        "solution": "If blocked, advise applicant to try a different device/network or proceed without Plaid (opt-out).",
+        "best_practices": [
+          "Set applicant expectations that some banks restrict third-party access.",
+          "Use Plaid Identity to mitigate fraud risk where feasible."
+        ]
+      },
+      {
+        "topic": "Credentialing (TransUnion & CRS)",
+        "explanation": "TransUnion credentialing typically takes 2–4 weeks depending on customer responsiveness. CRS credentialing usually 1–10 days.",
+        "examples": [
+          "Customer wants to screen immediately while TU is pending.",
+          "Customer asks about TU portal access."
+        ],
+        "solution": "Enable RentGrade during TU review so PMs can keep screening. TU portal is for Rentvine Support; customers use Rentvine to run reports. If TU declines, next steps depend on TU’s decision.",
+        "best_practices": [
+          "Provide TU portal password reset steps when Support must push a stuck report.",
+          "Keep the screening team looped on membership issues."
+        ]
+      },
+      {
+        "topic": "Prospects Tab",
+        "explanation": "Tracks leads not yet applied; shows name, unit, last activity, status, and source. Statuses are system-assigned (New → Invitation Sent → Application Started → Application Submitted → Archived).",
+        "examples": [
+          "PM asks why only the Account Manager email receives prospect notifications.",
+          "PM wants to bulk-invite prospects."
+        ],
+        "solution": "Prospect notifications go to the email under Account Manager (Global Settings). Use Add Prospect or Send Invite; bulk invites supported.",
+        "best_practices": [
+          "Use filters for workflow visibility; defaults reset on re-entry.",
+          "Leverage email templates for efficient outreach."
+        ]
+      },
+      {
+        "topic": "Editing Applications & Common Errors",
+        "explanation": "Application errors frequently stem from special characters, extra spaces, or non-US address formatting.",
+        "examples": [
+          "Error after running a screening report due to punctuation in PII fields.",
+          "Applicant address outside the U.S. causing eviction error."
+        ],
+        "solution": "Open Application → View Applicant → Actions > Edit. Remove commas/periods/special characters/extra spaces. For non-US addresses, set it to the property being applied for and rerun. SSN changes are under Personal Information.",
+        "best_practices": [
+          "Audit PII formatting before running screening.",
+          "Apartment numbers: use unit field only; no 'apt' string; avoid PO Boxes.",
+          "If credit error persists, rerun ONLY credit (uncheck criminal/eviction) to avoid extra charges."
+        ]
+      },
+      {
+        "topic": "TransUnion Playbook (Partially Complete / Pending / Failed)",
+        "explanation": "Partially Complete = not all components returned. Credit is usually quick; criminal/eviction can require runners. Pending beyond a few minutes often indicates TU portal pull issues.",
+        "examples": [
+          "Criminal report past expected date.",
+          "Report stuck in Pending due to portal auth."
+        ],
+        "solution": [
+          "If criminal past due date: email Mariah.Ebersole@transunion.com and Adrena.Duran@transunion.com; CC screening@rentvine.com.",
+          "If Pending persists: someone with TU portal access should push it through; if still failing, escalate to screening.",
+          "Failed screening with 'MEMBER USERNAME/PASSWORD INVALID': email Mariah for password update, update TU creds in Rentvine Admin Screening, then run credit if only one option is available."
+        ],
+        "best_practices": [
+          "After TU password reset, open the failure email link twice if the first goes to dashboard.",
+          "Never run multiple packages for a PM—only run when there’s a single option.",
+          "Document resolution back to customer."
+        ]
+      },
+      {
+        "topic": "CRS Playbook (Dynamic Mode & Error Handling)",
+        "explanation": "CRS supports dynamic selection of Credit/Criminal/Eviction. Data sources: Credit via Equifax; Criminal/Eviction via CIC Nationwide.",
+        "examples": [
+          "Eviction error due to address formatting.",
+          "Criminal error with correct data—likely backend/outage."
+        ],
+        "solution": [
+          "Eviction: ensure US address; remove special chars; check spaces; move unit numbers to unit field; avoid 'apt' text; no PO Boxes; use applying-property address if needed; verify the address is legitimate.",
+          "Criminal: verify DOB; if data is correct, escalate (backend or temporary outage).",
+          "Credit frozen: instruct applicant to unfreeze at Equifax, then wait 24 hours before re-running.",
+          "No credit data: if PDF shows 'frozen', follow freeze steps; otherwise send to Screening Team."
+        ],
+        "best_practices": [
+          "Escalate persistent CRS errors to support@crscreditapi.com via Screening Team.",
+          "Educate PMs on dynamic selection to control costs."
+        ]
+      },
+      {
+        "topic": "Notifications & Settings",
+        "explanation": "Application Submitted notifications are configured under Manager tab → Screening → Application Submitted; prospects notifications go to Account Manager email in Global Settings. Some application sections are required for TU integration; others can be disabled.",
+        "examples": [
+          "Customer not receiving Application Submitted emails.",
+          "PM asks to disable a section that TU requires."
+        ],
+        "solution": "Whitelist noreply@rentvine.com if emails are missing. In settings, edit fees/logos/verbiage; required sections cannot be disabled.",
+        "best_practices": [
+          "Use WYSIWYG with PNG/JPEG for branding.",
+          "Assign templates per property where needed."
+        ]
+      },
+      {
+        "topic": "Adverse Action Letters",
+        "explanation": "Adverse Action letters are preloaded and customizable. CRS also provides a template for denial/changes and bureau disclosures.",
+        "examples": [
+          "PM needs a denial letter template for a failed screening.",
+          "Compliance question about bureau contacts."
+        ],
+        "solution": "Use Rentvine letter templates or the CRS-provided template; include FCRA-required disclosures and bureau info where applicable.",
+        "best_practices": [
+          "Maintain standardized reasons lists and workflows.",
+          "Route screening disputes to TU or CRS; platform issues to Rentvine Screening Team."
+        ]
+      },
+      {
+        "topic": "Policies, KPIs, and Support Workflow",
+        "explanation": "Screening team process: route emails to Support; Go-Live emails direct new customers to support@rentvine.com; after-hours/weekends/holidays — urgent items ASAP, non-urgent next business day; use shared Slack channels for collaboration (no DMs).",
+        "examples": [
+          "Customer asks for a call; support gathers scope and schedules training if needed.",
+          "Analyst needs which Slack channel to search for app/screening topics."
+        ],
+        "solution": "Follow the documented routing and escalation policies; use Apps-screening-support and Rentvine-screening-app-dev Slack channels.",
+        "best_practices": [
+          "Use discretion on urgency; confirm scope before scheduling calls.",
+          "Ask questions if in doubt before sending external info."
+        ]
+      },
+      {
+        "topic": "FAQs & Region-Specific Notes",
+        "explanation": "Common Q&A to standardize guidance.",
+        "examples": [
+          "Difference between TU and RentGrade.",
+          "New York eviction search restriction."
+        ],
+        "solution": [
+          "TU vs RentGrade: both include criminal/eviction; TU requires credentialing for full credit report; RentGrade uses TU data via Rentvine credentialing but does not expose full credit file.",
+          "NY: eviction searches are restricted; only Credit + Criminal allowed (contact Screening Team for fees)."
+        ],
+        "best_practices": [
+          "Share KBAs/links with consistent wording.",
+          "When in doubt on pricing/packages, connect to Screening Team."
+        ]
+      }
+    ]
+  }
+}

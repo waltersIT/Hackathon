@@ -1,12 +1,13 @@
-Endpoints needed:
+*****Endpoints needed*****
 
 Maintenance:
 
 Portfolios:
+- 
+
 
 Diagnostics:
 
 Properties:
 
 Screening:
-
