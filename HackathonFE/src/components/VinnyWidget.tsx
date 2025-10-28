@@ -1,6 +1,6 @@
 // VinnyWidget = the chat panelUI
 // Currently only mock, fake chats, when backend is ready swap fakeChat() for a real fetch() to `/api/query` 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import vinny from "../assets/vinny.png";
 import vinnyFinal from "../assets/vinnyFinal.gif";
@@ -55,12 +55,15 @@ async function realChat(user: string) {
 }
 
 
-export default function VinnyWidget({
-  onClose,
-}: {
-  // used when user clicks the close button '-' on modal
-  onClose?: () => void;
-}) {
+// export default function VinnyWidget({
+//   onClose,
+// }: {
+//   // used when user clicks the close button '-' on modal
+//   onClose?: () => void;
+// }) {
+export default function VinnyWidget({ onClose, stateClassName }: { onClose?: () => void; stateClassName?: string }) {
+
+
   //const [history, setHistory] = useState<Msg[]>([]);
   //const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -94,10 +97,112 @@ export default function VinnyWidget({
   }, [input, DRAFT_KEY]);
 
 
-  // Always scroll to latest message
+  // Always be present to latest message, or did we want auto scroll on opening modal?
   useEffect(() => {
-    boxRef.current?.scrollTo({ top: 9e6, behavior: "smooth" });
+    boxRef.current?.scrollTo({ top: 9e6, behavior: "auto" });
   }, [history]);
+
+  /** Helper to format text with proper line breaks and markdown */
+  function formatMessage(content: string) {
+    const lines = content.split('\n');
+    const parts: React.ReactNode[] = [];
+    let keyCounter = 0;
+
+    lines.forEach((line, i) => {
+      // Check if this is a header (###, ##, #)
+      const headerMatch = line.match(/^(#{1,3})\s+(.+)$/);
+      if (headerMatch) {
+        const level = headerMatch[1].length;
+        const text = parseInlineContent(headerMatch[2]);
+        const Tag = level === 1 ? 'h1' : level === 2 ? 'h2' : 'h3';
+        parts.push(
+          <Tag key={`header-${keyCounter++}`} className="vinny-markdown-header">
+            {text}
+          </Tag>
+        );
+        return;
+      }
+
+      // Check if this is a table separator line
+      if (/^\|[\s-:]+\|/.test(line)) {
+        parts.push(<hr key={`hr-${keyCounter++}`} className="vinny-table-separator" />);
+        return;
+      }
+
+      // Check if this is a table row
+      if (/^\|.+\|$/.test(line)) {
+        const cells = line.split('|').filter(cell => cell.trim() !== '');
+        parts.push(
+          <div key={`table-row-${keyCounter++}`} className="vinny-table-row">
+            {cells.map((cell, cellIdx) => (
+              <span key={`cell-${cellIdx}`} className="vinny-table-cell">
+                {parseInlineContent(cell.trim())}
+              </span>
+            ))}
+          </div>
+        );
+        return;
+      }
+
+      // Regular text with inline formatting
+      const formattedLine = parseInlineContent(line);
+
+      parts.push(
+        <span key={`line-${i}`}>
+          {formattedLine}
+        </span>
+      );
+
+      // Add line breaks
+      if (i < lines.length - 1) {
+        if (line === '') {
+          parts.push(<br key={`br-${keyCounter++}`} />);
+          parts.push(<br key={`br-${keyCounter++}`} />);
+        } else {
+          parts.push(<br key={`br-${keyCounter++}`} />);
+        }
+      }
+    });
+
+    return <>{parts}</>;
+  }
+
+  /** Helper to parse inline content (bold, italic) */
+  function parseInlineContent(text: string): React.ReactNode[] {
+    const parts: React.ReactNode[] = [];
+    let keyCounter = 0;
+
+    // Parse bold (**text**) and italic (*text*) using a single pass
+    const inlineRegex = /(\*\*)(.+?)\1|(?<!\*)\*(?!\*)(.+?)\*/g;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = inlineRegex.exec(text)) !== null) {
+      // Add text before the match
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      
+      // Handle the match
+      if (match[0].startsWith('**') && match[0].endsWith('**')) {
+        // Bold text
+        parts.push(<strong key={`bold-${keyCounter++}`}>{match[2]}</strong>);
+      } else {
+        // Italic text
+        const italicText = match[3];
+        parts.push(<em key={`italic-${keyCounter++}`}>{italicText}</em>);
+      }
+      
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text after last match
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : [text];
+  }
 
   /** send the user message and reply */
   async function ask() {
@@ -136,7 +241,8 @@ export default function VinnyWidget({
 
 
   return (
-    <div className="vinny-card" role="dialog"               aria-label="Vinny AI chat">
+    // old code if needed <div className="vinny-card" role="dialog"               aria-label="Vinny AI chat">
+      <div className={`vinny-card ${stateClassName ?? ""}`} role="dialog" aria-label="Vinny AI chat">
       {/* header / logo/ title / minimize button */}
       <div className="vinny-header">
         <div className="vinny-id">
@@ -148,9 +254,9 @@ export default function VinnyWidget({
           <strong>Vinny AI</strong>
         </div>
         <div className="vinny-header-right">
-          <span className="vinny-pill">Local</span>
+          {/*Not needed but maybe in the future? Connectivity tag? <span className="vinny-pill">Yo Mama</span> */}
           <button
-            className="vinny-close"
+            className="vinny-refresh"
                         onClick={() => { setHistory([]); localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(DRAFT_KEY); }}
             title="Clear chat"
             aria-label="Clear chat"
@@ -184,7 +290,7 @@ export default function VinnyWidget({
             <div
               className={`vinny-bubble ${m.role === "user" ? "user" : "assistant"}`}
             >
-              {m.content}
+              {m.role === "assistant" ? formatMessage(m.content) : m.content}
             </div>
           </div>
         ))}
