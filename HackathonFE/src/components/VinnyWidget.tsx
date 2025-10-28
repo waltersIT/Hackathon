@@ -67,6 +67,8 @@ export default function VinnyWidget({ onClose, stateClassName }: { onClose?: () 
   //const [history, setHistory] = useState<Msg[]>([]);
   //const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   // ids for tabs session and current route
   const SESSION_ID = ensureSessionId();
@@ -101,6 +103,27 @@ export default function VinnyWidget({ onClose, stateClassName }: { onClose?: () 
   useEffect(() => {
     boxRef.current?.scrollTo({ top: 9e6, behavior: "auto" });
   }, [history]);
+
+  // Handle easter egg display
+  useEffect(() => {
+    if (showEasterEgg) {
+      const timer = setTimeout(() => {
+        setShowEasterEgg(false);
+        setLogoClicks(0); // Reset after showing
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showEasterEgg]);
+
+  // Handle logo click for easter egg
+  function handleLogoClick() {
+    const newClicks = logoClicks + 1;
+    setLogoClicks(newClicks);
+    
+    if (newClicks >= 5) {
+      setShowEasterEgg(true);
+    }
+  }
 
   /** Helper to format text with proper line breaks and markdown */
   function formatMessage(content: string) {
@@ -241,75 +264,102 @@ export default function VinnyWidget({ onClose, stateClassName }: { onClose?: () 
 
 
   return (
-    // old code if needed <div className="vinny-card" role="dialog"               aria-label="Vinny AI chat">
+    <>
+      {/* old code if needed <div className="vinny-card" role="dialog"               aria-label="Vinny AI chat"> */}
       <div className={`vinny-card ${stateClassName ?? ""}`} role="dialog" aria-label="Vinny AI chat">
-      {/* header / logo/ title / minimize button */}
-      <div className="vinny-header">
-        <div className="vinny-id">
+        {/* header / logo/ title / minimize button */}
+        <div className="vinny-header">
+          <div className="vinny-id">
             <img 
-                src={busy ? vinnyFinal : vinny}
-                alt="Vinny chatbot"
-                className={`vinny-logo ${busy ? "busy" : ""}`}
+              src={busy ? vinnyFinal : vinny}
+              alt="Vinny chatbot"
+              className={`vinny-logo ${busy ? "busy" : ""}`}
+              onClick={handleLogoClick}
+              style={{ cursor: "pointer" }}
             />
-          <strong>Vinny AI</strong>
-        </div>
-        <div className="vinny-header-right">
-          {/*Not needed but maybe in the future? Connectivity tag? <span className="vinny-pill">Yo Mama</span> */}
-          <button
-            className="vinny-refresh"
-                        onClick={() => { setHistory([]); localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(DRAFT_KEY); }}
-            title="Clear chat"
-            aria-label="Clear chat"
-          >
-            ⟲
-          </button>
-          <button
-            className="vinny-close"
-            onClick={onClose}
-            title="Minimize"
-            aria-label="Minimize Vinny"
-          >
-            –
-          </button>
-        </div>
-      </div>
-
-      {/* messages */}
-      <div ref={boxRef} className="vinny-body">
-        {history.length === 0 && (
-          <div className="vinny-empty">
-            Ask about this page or the KB. Try:{" "}
-            <em>“What are Late Fee Settings?”</em>
+            <strong>Vinny The Vine</strong>
           </div>
-        )}
-        {history.map((m, i) => (
-          <div
-            key={i}
-            className={m.role === "user" ? "vinny-row right" : "vinny-row left"}
-          >
-            <div
-              className={`vinny-bubble ${m.role === "user" ? "user" : "assistant"}`}
+          <div className="vinny-header-right">
+            {/*Not needed but maybe in the future? Connectivity tag? <span className="vinny-pill">Yo Mama</span> */}
+            <button
+              className="vinny-refresh"
+              onClick={() => { setHistory([]); localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(DRAFT_KEY); }}
+              title="Clear chat"
+              aria-label="Clear chat"
             >
-              {m.role === "assistant" ? formatMessage(m.content) : m.content}
-            </div>
+              ⟲
+            </button>
+            <button
+              className="vinny-close"
+              onClick={onClose}
+              title="Minimize"
+              aria-label="Minimize Vinny"
+            >
+              –
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* composer , input / send */}
-      <div className="vinny-composer">
-        <input
-          className="vinny-input"
-          placeholder={busy ? "Thinking…" : "Ask Vinny…"}
-          disabled={busy}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && ask()}
-        />
-        <button className="vinny-send" onClick={ask} disabled={busy}>
-          Send
-        </button>
+        {/* messages */}
+        <div ref={boxRef} className="vinny-body">
+          {history.length === 0 && (
+            <div className="vinny-empty">
+              Ask about this page or the KB. Try:{" "}
+              <em>“What are Late Fee Settings?”</em>
+            </div>
+          )}
+          {history.map((m, i) => (
+            <div
+              key={i}
+              className={m.role === "user" ? "vinny-row right" : "vinny-row left"}
+            >
+              <div
+                className={`vinny-bubble ${m.role === "user" ? "user" : "assistant"}`}
+              >
+                {m.role === "assistant" ? formatMessage(m.content) : m.content}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* composer , input / send */}
+        <div className="vinny-composer">
+          <input
+            className="vinny-input"
+            placeholder={busy ? "Thinking…" : "Ask Vinny…"}
+            disabled={busy}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && ask()}
+          />
+          <button className="vinny-send" onClick={ask} disabled={busy}>
+            Send
+          </button>
+        </div>
       </div>
-    </div>
+      
+      {/* Easter Egg Overlay */}
+      {showEasterEgg && (
+        <>
+          <div className="vinny-easter-egg">
+            <img src="/easterEgg.png" alt="Easter Egg" className="vinny-easter-egg-img" />
+          </div>
+          {/* Confetti */}
+          <div className="confetti-container">
+            {[...Array(200)].map((_, i) => (
+              <div
+                key={i}
+                className="confetti"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `0s`,
+                  animationDuration: `${2 + Math.random() * 2.2}s`,
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </>
   );
 }
