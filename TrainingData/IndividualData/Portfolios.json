@@ -1,0 +1,124 @@
+{
+  "Rentvine_Portfolios_Training": {
+    "topics": [
+      {
+        "topic": "Overview of Portfolios",
+        "explanation": "Portfolios in Rentvine organize properties and owners into accounting groups. Each portfolio contains an owner ledger that records income, expenses, distributions, contributions, and credits for all properties it contains. Rentvine operates on a portfolio-based accounting structure, allowing an owner to use funds from one property to cover expenses on another within the same portfolio if permissions allow.",
+        "key_points": [
+          "Each portfolio ledger includes lease transactions, bill payments, suppressed fees, and credits.",
+          "Bank transfers and transactions using asset chart of accounts do not appear in the ledger.",
+          "Owner contact details in the portfolio determine who receives payouts and tax reporting.",
+          "The Overdraft Override Amount allows an owner to pay bills or distributions even when the operating balance is low.",
+          "Disabling 'Balance Notices' stops automatic email notifications when balances go negative."
+        ]
+      },
+      {
+        "topic": "Portfolio Balances and Definitions",
+        "explanation": "Portfolio balances summarize the financial health of an owner's portfolio. Each balance type represents a specific subset of funds tracked in the accounting system.",
+        "definitions": [
+          { "Operating Balance": "Funds currently available to pay bills or distribute to owners. It excludes funds tied to liabilities, reserves, or unsettled transactions." },
+          { "Cash Balance": "The total funds in the trust bank account for the portfolio, including unsettled or reserved funds." },
+          { "Escrow": "Tracks tenant security deposits held in separate escrow accounts." },
+          { "Security Deposits": "General ledger accounts designated for security deposit tracking across all active leases." },
+          { "Owner Held Deposits": "Deposits physically held by the owner rather than managed within Rentvine." },
+          { "Payables": "All unpaid bills awaiting payment within the portfolio." },
+          { "Credits": "Owner, vendor, or lease credits that can be applied to charges or bills." },
+          { "Receivables": "Outstanding tenant lease charges not yet paid." },
+          { "Work Order Estimate": "Projected costs tied to pending work orders." },
+          { "Liabilities": "Funds intentionally held back from the operating balance that require journal entries to move." },
+          { "Non-Held Liabilities": "Liabilities not deducted from the operating balance." },
+          { "Prepayment": "Funds recorded as prepaid rent or unallocated payments awaiting application." },
+          { "Undeposited": "Funds received but not yet deposited. These can be reviewed under Reports > Tenant Receipts with 'Deposited: No' filter." },
+          { "Undeposited Escrow": "Electronic escrow payments pending 3–5 day settlement." },
+          { "Reserve": "Emergency funds held back to prevent the operating balance from dropping below a minimum threshold." }
+        ]
+      },
+      {
+        "topic": "Operating Balance and Cash Flow",
+        "explanation": "The operating balance is the key figure used by property managers to determine how much is available for disbursements and bill payments. Rentvine processes tenant payments through its payment gateway (Forte), allocates them to the proper portfolio accounts, and calculates the operating balance after liabilities and reserves.",
+        "workflow": [
+          "Tenant Payment → Rentvine Receives Funds → Allocated to Operating/Escrow → Property Manager Pays Bills/Owners",
+          "Only settled funds are included in the operating balance calculation."
+        ],
+        "best_practices": [
+          "Monitor operating balance daily before processing owner distributions.",
+          "Avoid recording transactions directly to asset accounts unless necessary, as they reduce visible operating funds.",
+          "Reconcile deposits promptly to keep balances accurate."
+        ]
+      },
+      {
+        "topic": "Reserves and Diagnostics",
+        "explanation": "Reserves act as a financial safeguard to ensure that a minimum balance remains available in the portfolio. The Diagnostics tab will flag portfolios with a 'Reserve Not Met' message if the operating balance drops below the required reserve level.",
+        "details": [
+          "The reserve amount is configured within each portfolio’s settings.",
+          "If the operating balance falls below this amount, distributions and bill payments may be blocked until funds are replenished.",
+          "Additional funds can be added via owner contributions or incoming lease income."
+        ],
+        "best_practices": [
+          "Set realistic reserve thresholds per owner agreement.",
+          "Monitor diagnostics regularly to prevent reserve-related payment holds."
+        ]
+      },
+      {
+        "topic": "Escrow and Security Deposits",
+        "explanation": "The escrow and security deposit sections of a portfolio track tenant-held funds that are legally separate from operational income. Rentvine maintains a one-to-one relationship between escrow balances and security deposit charges.",
+        "common_issues": [
+          "Tenant accidentally pays a security deposit into the operating account instead of the escrow account.",
+          "Manager refunds or applies deposits without a matching bank transfer, creating a mismatch."
+        ],
+        "solution": "If the escrow and security deposit amounts differ, record a transfer between the appropriate accounts under Accounting > Banking > New Bank Transfer. Complete the equivalent transaction outside Rentvine in the actual bank accounts.",
+        "best_practices": [
+          "Educate tenants on using the 'Pay Deposit' button when making security deposit payments.",
+          "Check Diagnostics regularly for escrow mismatches to correct them early."
+        ]
+      },
+      {
+        "topic": "Owner and Tenant Statements",
+        "explanation": "Statements provide owners with a detailed record of portfolio activity. These include lease-level and property-level transactions, fees, and distributions.",
+        "key_details": [
+          "Preview statements via the green Actions button > New Statement.",
+          "To officially generate statements, go to Portfolios > Statement Batches.",
+          "Global Settings > Statements allows you to create or clone statement templates.",
+          "Enable or disable the 'Consolidate Units' option to adjust property-level visibility on the statement."
+        ],
+        "troubleshooting": [
+          "If an owner claims a bill or transaction is missing, clear the 'Date Posted' filter in the Bills section.",
+          "Mismatched totals between statements and reports usually indicate suppressed fee mismatches.",
+          "Statements do not post automatically; they must be manually submitted."
+        ],
+        "best_practices": [
+          "Standardize statement templates in Global Settings for consistent presentation.",
+          "Email statements to owners after batch generation or download them as PDFs."
+        ]
+      },
+      {
+        "topic": "Validated AI and Human Dialogue Corrections",
+        "validated_information": [
+          {
+            "question": "What is the operating balance of a portfolio?",
+            "ai_response": "The operating balance represents settled funds available for use within the trust account that are not tied up in liabilities, reserves, or asset accounts.",
+            "validation_status": "Confirmed correct by user and matches Rentvine portfolio documentation."
+          },
+          {
+            "question": "How do asset accounts affect the portfolio?",
+            "ai_response": "Asset accounts reduce the visible operating balance by holding funds for future use while still counting toward the total cash balance.",
+            "validation_status": "Confirmed correct by user and supported by internal Rentvine behavior."
+          },
+          {
+            "question": "What triggers the Reserve Not Met diagnostic?",
+            "ai_response": "When transactions reduce the operating balance below the defined reserve threshold, Rentvine flags this diagnostic alert.",
+            "validation_status": "Validated against portfolio diagnostic documentation."
+          },
+          {
+            "question": "What causes an escrow mismatch?",
+            "ai_response": "When tenant payments or refunds are processed through the wrong account, creating an imbalance between the escrow balance and total tracked security deposits.",
+            "validation_status": "Validated against Rentvine Escrow documentation."
+          }
+        ],
+        "excluded_responses": [
+          "Any AI-generated content referencing loans, capital investments, or external reconciliation not found in Rentvine materials."
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "Rentvine_Contacts_Training": {
+    "topics": [
+      {
+        "topic": "Contacts Overview",
+        "explanation": "The Contacts tab in Rentvine is where users manage all contact types — tenants, owners, and vendors. Each contact type contains details such as communication preferences, linked portfolios or leases, and payment or tax information. Portal invitations for tenants, owners, and vendors are also managed here.",
+        "examples": [
+          "Creating a tenant contact to send a Rentvine portal invitation.",
+          "Creating a vendor contact and setting up payment preferences (check, eCheck, NACHA, or Other).",
+          "Creating an owner contact and linking the appropriate portfolio for owner distributions."
+        ],
+        "solution": "To manage or create a contact, navigate to the Contacts tab and choose Tenants, Owners, or Vendors. Populate the necessary details such as name, email, and linked items (leases or portfolios). To invite a contact to the portal, open their profile, scroll to the 'Invitations' box, and click 'Send Invitation'. The contact must accept the invitation email and register or sign in to their existing account.",
+        "best_practices": [
+          "Ensure all contact details are complete before sending invitations.",
+          "Use consistent email addresses for contacts associated with multiple records (leases, portfolios).",
+          "Confirm portal access completion by checking the 'Portal Access' box for an associated email address."
+        ]
+      },
+      {
+        "topic": "Sending Portal Invitations",
+        "explanation": "Portal invitations allow tenants, owners, and vendors to access their respective Rentvine portals. Invitations are sent from within each contact’s profile under the 'Invitations' section.",
+        "examples": [
+          "Tenant unable to log in because no invitation was sent.",
+          "Owner unable to access their portal due to missing invitation link."
+        ],
+        "solution": "Open the contact under Contacts > Tenants, Owners, or Vendors. Scroll to the 'Invitations' box and click the blue 'Send Invitation' button. The recipient must open the email, click 'Accept', then 'Register' (or 'Sign In' if they already have an account).",
+        "best_practices": [
+          "Before resending an invitation, check if the contact already has portal access listed under 'Portal Access'.",
+          "Ensure that the email address under the contact is correct and active before sending invitations."
+        ]
+      },
+      {
+        "topic": "Owner Portal Access Issues",
+        "explanation": "Owners may report that they cannot see their portfolios or data in their Rentvine owner portal. This is often caused by the portfolio not being linked to the owner contact, or the owner having multiple contact profiles.",
+        "examples": [
+          "Owner reports they cannot see their portfolio in the owner portal.",
+          "Portfolio not appearing under the contact’s 'Portfolios' section."
+        ],
+        "solution": "Go to Contacts > Owners, then search for the owner. Scroll down to the 'Portfolios' section to confirm the portfolio is listed. If missing, link the correct portfolio. If the owner has multiple contacts, confirm which one is linked to the correct portfolio. Instruct the owner to click the ellipsis (three dots) in their portal and select 'Switch Portfolios' or 'Switch Contacts' to access the correct one.",
+        "best_practices": [
+          "Ensure each owner has only one active contact record per portfolio.",
+          "Verify portfolios are linked correctly under each owner contact.",
+          "Encourage owners with multiple portfolios to use the 'Switch Portfolio' option in their portal to navigate."
+        ]
+      },
+      {
+        "topic": "Tenant Portal Access Issues",
+        "explanation": "Tenants may be unable to see their leases or login to their portal due to unlinked or deactivated contacts. Each tenant contact must be active and associated with at least one lease for proper portal functionality.",
+        "examples": [
+          "Tenant reports they cannot see their lease in their portal.",
+          "Tenant contact deactivated, causing loss of portal access."
+        ],
+        "solution": "Go to Contacts > Tenants, search for the tenant, and check the 'Leases' section. If no lease is shown, link the tenant to their active lease. If the contact is deactivated, remove the 'Active' filter to locate it, then reactivate. Instruct the tenant to click the ellipsis (three dots) in their portal and select 'Switch Leases' if they are tied to multiple leases.",
+        "best_practices": [
+          "Maintain one active contact per tenant to avoid confusion.",
+          "Use the same email address for tenants across multiple leases for seamless portal switching.",
+          "Regularly review Contacts > Tenants to ensure all active tenants are linked to active leases."
+        ]
+      },
+      {
+        "topic": "Vendor Contacts and Payments",
+        "explanation": "Vendor contacts in Rentvine store payment preferences, tax information, and communication history. Each vendor must have their payment type configured to receive payouts correctly through the system.",
+        "examples": [
+          "Vendor not receiving payment because payment method not set up.",
+          "Missing tax information for vendor contact."
+        ],
+        "solution": "Go to Contacts > Vendors and open the vendor profile. Verify that the payment method is set to check, eCheck, NACHA, or Other, and ensure tax details are entered under Tax Information. Use the 'Send Invitation' button to give the vendor access to their portal where they can view payments and invoices.",
+        "best_practices": [
+          "Ensure vendor tax information and payment details are completed before issuing payments.",
+          "Maintain consistent naming conventions for vendors to avoid duplicate records.",
+          "Educate vendors on how to access their portal for payment tracking and invoice submission."
+        ]
+      }
+    ]
+  }
+}
