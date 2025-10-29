@@ -139,8 +139,8 @@ def query():
         return jsonify({"error": str(e)}), 500
 
 
-# 🟢 Serve React frontend for all non-API routes
-
+# Serve react's static pages from the backend. Not using for demo 
+"""
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
@@ -151,7 +151,7 @@ def serve_react(path):
     else:
         # Serve the React index.html for any other route
         return send_from_directory(app.static_folder, 'index.html')
-
+"""
 
 
 if __name__ == "__main__":
