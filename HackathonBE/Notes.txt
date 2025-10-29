@@ -1,13 +1,29 @@
 *****Endpoints needed*****
 
 Maintenance:
+    Work orders:
+        - https://123pm.rentvine.com/api/manager/maintenance/work-orders/5424?includes=vendor%2CvendorTrade%2Cproperty%2Cunit%2Cbills%2Cassignees%2Cportfolio%2CportfolioBalances%2Cowners%2Clease%2CleaseBalances%2CleaseTenants%2Cinspection%2CworkOrderProject%2Cassociations%2Cinspection%2Creview
+    Inspection: 
+        - https://123pm.rentvine.com/api/manager/maintenance/inspections/814?includes=areas%2Citems%2Cfiles%2Cunit%2Clease%2Cproperty
+    Projects:
+        - https://123pm.rentvine.com/api/manager/maintenance/work-orders/projects/151?includes=assignedToUser%2Cproperty%2Cunit%2Crestrictions
 
 Portfolios:
-- 
+- https://123pm.rentvine.com/api/manager/portfolios/338?includes=owners%2Cproperties%2Cposting%2CstatementSetting%2Cledger
+- https://123pm.rentvine.com/api/manager/accounting/ledgers/976?includes=balances
 
 
 Diagnostics:
+- https://123pm.rentvine.com/api/manager/accounting/accounts //GL accounts
+- https://123pm.rentvine.com/api/manager/accounting/diagnostics //actual diagnostics
 
 Properties:
+- https://123pm.rentvine.com/api/manager/properties/245?includes=applicationTemplate%2Cimage%2Cunit%2Clease%2Cportfolios%2Clisting%2Cappliances%2CmanagementFeeSetting%2Cassociations%2CpropertyManager%2CpastLeases%2CfutureLeases%2Cowners
 
 Screening:
+    Applications:
+        - https://123pm.rentvine.com/api/manager/screening/applications/1638?includes=applicants%2Clease%2Creports%2Cgroup%2CcreditReportDocument%2CcriminalReportDocument%2CevictionReportDocument%2Cprospect%2Canimals
+    Prospects:
+        - https://123pm.rentvine.com/api/manager/screening/prospects/114?includes=contact%2Cunit%2Cinvitation%2Cstatus
+    Payments:
+        - https://123pm.rentvine.com/api/manager/screening/payments/1?includes=applicant%2Capplication%2Crefunds
