@@ -7,6 +7,7 @@ from dotenv import load_dotenv, set_key
 import os
 from werkzeug.serving import make_server
 import threading
+from promptParsing import chunk_for_lm_studio
 
 # Load .env vars
 load_dotenv()
@@ -94,15 +95,16 @@ def query():
         # Rentvine API call
         url = (data.get("url") or "").strip()
         formatted_data = build_api_url("https://123pm.rentvine.com/properties/245?page=1&pageSize=15")
-        print(formatted_data)
         print("API fetched successfully")
 
 
         #chuncks API data
         parts = chunk_for_lm_studio(formatted_data, max_tokens=8192, reserve_tokens=600, overlap_tokens=64)
+        print("Parts: ", parts)
         messages = [
                     {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: \n{question}. You will receive the context for this prompt in parts; do not answer until I say DONE."},
                 ]
+        print("Messages initialized")
         for p in parts:
             messages.append({
                 "role": "user",
@@ -110,7 +112,7 @@ def query():
             })
         # final instruction prompting the model to proceed
         messages.append({"role": "user", "content": "DONE. Use all parts above to answer my question."})
-
+        print("Messages added: ", messages)
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
@@ -121,8 +123,9 @@ def query():
             "messages": messages,
             "temperature": 0.5
         }
-
+        print("sending request")
         lm_response = requests.post(lm_studio_url, headers=headers, json=payload)
+        print("awaiting status and response")
         lm_response.raise_for_status()
         lm_data = lm_response.json()
 
