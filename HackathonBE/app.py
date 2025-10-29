@@ -102,7 +102,7 @@ def query():
         parts = chunk_for_lm_studio(formatted_data, max_tokens=2000, reserve_tokens=600, overlap_tokens=64)
         print("API Response chunked")
         messages = [
-                    {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: \n{question}. You will receive the context for this prompt in the following messages."},
+                    {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: {question}. You will receive the context for this prompt in the following messages."},
                 ]
         print("Messages initialized")
         cnt = 0
@@ -117,7 +117,7 @@ def query():
             "role": "user",
             "content": f"Here is the chat history: {data.get("history")}"
             })
-        
+        #print(data.get("history"))
         #sends api call
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
