@@ -34,7 +34,7 @@ function draftKeyFor(pathname: string, sessionId: string) {
 }
 
 
-async function realChat(user: string) {
+async function realChat(q: string, h: string) {
   
   const currentAddress = window.location.href;//parse the url
   const backendPort = import.meta.env.VITE_BACKEND_PORT;
@@ -43,8 +43,9 @@ async function realChat(user: string) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
-      question: user,
-      url: currentAddress
+      question: q,
+      url: currentAddress,
+      history: h
     }),
   });
   if (!res.ok) {
@@ -238,7 +239,7 @@ export default function VinnyWidget({ onClose, stateClassName }: { onClose?: () 
 
   try {
     console.log(q);
-    const data = await realChat(q);
+    const data = await realChat(q, JSON.stringify(history));
 
     const cites = (data.sources || [])
       .slice(0, 2)
