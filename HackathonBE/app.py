@@ -8,6 +8,7 @@ import os
 from werkzeug.serving import make_server
 import threading
 from promptParsing import chunk_for_lm_studio
+from apiRoutes import build_api_url
 
 # Load .env vars
 load_dotenv()
@@ -25,8 +26,6 @@ app = Flask(__name__,
     static_folder=FRONTEND_BUILD_DIR
 )
 
-
-
 # Enable CORS for /api/* routes; we'll still add precise headers below
 CORS(
     app,
@@ -35,7 +34,7 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-
+"""
 def build_api_url(webpage_url: str) -> str:
     print("webpage API: " + webpage_url)
     parsed_url = urlparse(webpage_url)
@@ -60,7 +59,9 @@ def build_api_url(webpage_url: str) -> str:
     app_response.raise_for_status()
     print(app_response)
     return json.dumps(app_response.json(), indent=2)
-    
+"""
+
+
 @app.after_request
 def add_cors_headers(response):
     """
@@ -93,13 +94,18 @@ def query():
             return jsonify({"error": "Missing question"}), 400
 
         # Rentvine API call
-        url = (data.get("url") or "").strip()
-        formatted_data = build_api_url("https://123pm.rentvine.com/properties/245?page=1&pageSize=15")
-        print("API fetched successfully")
-
+        url = (data.get("url")).strip()
+        api_url = build_api_url("https://123pm.rentvine.com/screening/applications/1630")
+        endpoint = api_url
+        print(endpoint)
+        #test call
+        
+        app_response = requests.get(endpoint, auth=(username, password)) #this is where the code is breaking, this request is not going through?
+        app_response.raise_for_status()
+        api_data = json.dumps(app_response.json(), indent=2)
 
         #chuncks API data
-        parts = chunk_for_lm_studio(formatted_data, max_tokens=2000, reserve_tokens=600, overlap_tokens=64)
+        parts = chunk_for_lm_studio(api_data, max_tokens=2000, reserve_tokens=600, overlap_tokens=64)
         print("API Response chunked")
         messages = [
                     {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: {question}. You will receive the context for this prompt in the following messages."},
