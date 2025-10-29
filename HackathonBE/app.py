@@ -34,15 +34,30 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-def getApiData(full_url: str):
-    # Parse path off the frontend origin (adjust if you change your frontend host)
-    p = urlparse(full_url or "")
-    path = p.path or "/"
-    if p.query:
-        path += f"?{p.query}"
-    # now path is like "/portfolios/351?x=y"
-    app_response = requests.get(f"{base_url}{path}", auth=(username, password))
+
+def build_api_url(webpage_url: str) -> str:
+    print("webpage API: " + webpage_url)
+    parsed_url = urlparse(webpage_url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+
+    # Extract object ID from the path (e.g., /properties/245)
+    path_parts = parsed_url.path.strip("/").split("/")
+    object_id = path_parts[-1] if path_parts else None
+
+    if not object_id.isdigit():
+        raise ValueError("No valid object ID found in the URL path.")
+
+    # Construct API endpoint
+    api_url = (
+        f"{base_url}/api/manager/properties/{object_id}"
+        "?includes=applicationTemplate%2Cimage%2Cunit%2Clease%2Cportfolios%2Clisting"
+        "%2Cappliances%2CmanagementFeeSetting%2Cassociations%2CpropertyManager"
+        "%2CpastLeases%2CfutureLeases%2Cowners"
+    )
+    print("API URL: " + api_url)
+    app_response = requests.get(api_url, auth=(username, password))
     app_response.raise_for_status()
+    print(app_response)
     return json.dumps(app_response.json(), indent=2)
     
 @app.after_request
@@ -78,10 +93,24 @@ def query():
 
         # Rentvine API call
         url = (data.get("url") or "").strip()
-        formatted_data = getApiData(url)
+        formatted_data = build_api_url("https://123pm.rentvine.com/properties/245?page=1&pageSize=15")
+        print(formatted_data)
         print("API fetched successfully")
 
-        # Prepare message for LM Studio
+
+        #chuncks API data
+        parts = chunk_for_lm_studio(formatted_data, max_tokens=8192, reserve_tokens=600, overlap_tokens=64)
+        messages = [
+                    {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: \n{question}. You will receive the context for this prompt in parts; do not answer until I say DONE."},
+                ]
+        for p in parts:
+            messages.append({
+                "role": "user",
+                "content": f"[PART {p['index']+1}/{p['total']}] SHA256={p['sha256']}\n{p['content']}"
+            })
+        # final instruction prompting the model to proceed
+        messages.append({"role": "user", "content": "DONE. Use all parts above to answer my question."})
+
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
@@ -89,10 +118,7 @@ def query():
         }
         payload = {
             "model": "openai/gpt-oss-20b",
-            "messages": [
-                {"role": "system", "content": "You are a helpful customer support assistant."},
-                {"role": "user", "content": f"Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\n{question}"}
-            ],
+            "messages": messages,
             "temperature": 0.5
         }
 
