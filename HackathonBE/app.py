@@ -34,34 +34,6 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-"""
-def build_api_url(webpage_url: str) -> str:
-    print("webpage API: " + webpage_url)
-    parsed_url = urlparse(webpage_url)
-    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
-
-    # Extract object ID from the path (e.g., /properties/245)
-    path_parts = parsed_url.path.strip("/").split("/")
-    object_id = path_parts[-1] if path_parts else None
-
-    if not object_id.isdigit():
-        raise ValueError("No valid object ID found in the URL path.")
-
-    # Construct API endpoint
-    api_url = (
-        f"{base_url}/api/manager/properties/{object_id}"
-        "?includes=applicationTemplate%2Cimage%2Cunit%2Clease%2Cportfolios%2Clisting"
-        "%2Cappliances%2CmanagementFeeSetting%2Cassociations%2CpropertyManager"
-        "%2CpastLeases%2CfutureLeases%2Cowners"
-    )
-    print("API URL: " + api_url)
-    app_response = requests.get(api_url, auth=(username, password))
-    app_response.raise_for_status()
-    print(app_response)
-    return json.dumps(app_response.json(), indent=2)
-"""
-
-
 @app.after_request
 def add_cors_headers(response):
     """
@@ -96,11 +68,7 @@ def query():
         # Rentvine API call
         url = (data.get("url")).strip()
         api_url = build_api_url("https://123pm.rentvine.com/screening/applications/1630")
-        endpoint = api_url
-        print(endpoint)
-        #test call
-        
-        app_response = requests.get(endpoint, auth=(username, password)) #this is where the code is breaking, this request is not going through?
+        app_response = requests.get(api_url, auth=(username, password)) #this is where the code is breaking, this request is not going through?
         app_response.raise_for_status()
         api_data = json.dumps(app_response.json(), indent=2)
 
@@ -123,8 +91,7 @@ def query():
             "role": "user",
             "content": f"Here is the chat history: {data.get("history")}"
             })
-        #print(data.get("history"))
-        #sends api call
+        print("history added")
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
@@ -168,7 +135,6 @@ def serve_react(path):
         # Serve the React index.html for any other route
         return send_from_directory(app.static_folder, 'index.html')
 """
-
 
 if __name__ == "__main__":
     def run_app():
