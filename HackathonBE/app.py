@@ -8,7 +8,7 @@ import os
 from werkzeug.serving import make_server
 import threading
 from promptParsing import chunk_for_lm_studio
-from apiRoutes import build_api_url
+from apiRoutes import fetch_api_responses
 
 # Load .env vars
 load_dotenv()
@@ -18,7 +18,7 @@ password = os.getenv("API_PASSWORD")
 base_url = os.getenv("API_URL")
 
 # Frontend origins allowed to call your API
-ALLOWED_ORIGINS = {"http://localhost:5173", "http://127.0.0.1:5173"}
+ALLOWED_ORIGINS = {"https://abchomes.rentvinedev.com"}
 FRONTEND_BUILD_DIR = os.path.join(os.path.dirname(__file__), "..", "hackathonfe", "dist")
 
 # Flask app
@@ -65,13 +65,13 @@ def query():
         if not question:
             return jsonify({"error": "Missing question"}), 400
 
-        # Rentvine API call
+        # Rentvine API call - fetch_api_responses handles the API call(s) and returns JSON string
+        print("stripping url")
         url = (data.get("url")).strip()
-        api_url = build_api_url("https://123pm.rentvine.com/screening/applications/1630")
-        app_response = requests.get(api_url, auth=(username, password)) #this is where the code is breaking, this request is not going through?
-        app_response.raise_for_status()
-        api_data = json.dumps(app_response.json(), indent=2)
-
+        print("url stripped")
+        print("fetching api data")
+        api_data = fetch_api_responses(url, username=username, password=password)
+        print("api data fetched")
         #chuncks API data
         parts = chunk_for_lm_studio(api_data, max_tokens=2000, reserve_tokens=600, overlap_tokens=64)
         print("API Response chunked")
@@ -138,9 +138,9 @@ def serve_react(path):
 
 if __name__ == "__main__":
     def run_app():
-        # Create the server, letting it pick any open port
-        server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
-        port = server.server_port                 # :white_check_mark: real assigned port
+        # Create the server on port 5000
+        port = 5000
+        server = make_server("127.0.0.1", port, app)
         app.config["PORT"] = port
         print(f":white_check_mark: Server running on http://127.0.0.1:{port}")
         env_path = os.path.join(os.path.dirname(__name__), "..", "hackathonFE", ".env")
