@@ -1,0 +1,102 @@
+{
+  "Rentvine_Maintenance_Training": {
+    "topics": [
+      {
+        "topic": "Property-Level Tabs (Context)",
+        "explanation": "When working on maintenance, it helps to know the standard tabs available on a property record. These tabs organize where maintenance settings and related items live.",
+        "examples": [
+          "Navigating to the Maintenance tab to review limits and notes before creating a work order.",
+          "Opening the Inspections tab to check recent inspection results related to a work order."
+        ],
+        "solution": [
+          "Standard property tabs: Details, Marketing, Bills, Settings, Maintenance, Inspections, Files, Budgets.",
+          "Use **Settings \u2192 Maintenance Settings** to view or edit limits, warranty dates, or maintenance notes when needed for a work order."
+        ],
+        "best_practices": [
+          "Review Maintenance Settings before dispatching vendors to ensure work stays within limits.",
+          "Attach relevant files (photos, invoices, inspection PDFs) to the property for reference on future work orders."
+        ]
+      },
+      {
+        "topic": "Green Actions Menu (Property Level)",
+        "explanation": "From a property\u2019s page, the green Actions menu provides shortcuts. Only include actions known to be available at the property level, per the corrected list from training data.",
+        "examples": [
+          "Starting a new work order directly from a property.",
+          "Creating a recurring work order for routine services."
+        ],
+        "solution": [
+          "Confirmed property-level Actions include: Add New Property, New Work Order, Create New Work Order, Add New Bill, New Inspection, New Recurring Work Order, Add Lease, New Rentsign Document, Create Craigslist Ad, View Property Custom Field Categories, Deactivate, Delete."
+        ],
+        "best_practices": [
+          "Prefer **New Work Order** when logging one-off issues; use **New Recurring Work Order** for scheduled services (e.g., landscaping).",
+          "Add bills and documents from the same menu to keep maintenance records centralized."
+        ]
+      },
+      {
+        "topic": "Edit Maintenance Details on a Property",
+        "explanation": "Maintenance details (limit amount, warranty expires, notes) feed into work orders and approvals.",
+        "examples": [
+          "Updating maintenance limit after an owner authorization change.",
+          "Adding warranty expiration so techs know coverage before dispatch."
+        ],
+        "solution": [
+          "Go to **Properties \u2192 [Select Property] \u2192 Settings \u2192 Maintenance Settings**.",
+          "Edit **Maintenance Limit**, **Warranty Expiration Date**, and **Maintenance Notes** as needed, then Save."
+        ],
+        "best_practices": [
+          "Keep limit and notes current so vendor approvals and spend controls work as intended.",
+          "Record warranty info to avoid unnecessary charges for covered items."
+        ]
+      },
+      {
+        "topic": "Create a Work Order",
+        "explanation": "Work Orders track maintenance tasks for a property/unit and can be created from the property Actions menu or the Maintenance module.",
+        "examples": [
+          "Create a work order for 'Leaky kitchen faucet' at Unit 2A.",
+          "Log a tenant-submitted request and assign it to an in-house tech."
+        ],
+        "solution": [
+          "From the property, open the **Green Actions** menu and choose **New Work Order** (or go to **Maintenance \u2192 Work Orders \u2192 Add Work Order**).",
+          "Select the property/unit, add title/description, set priority and due date.",
+          "Assign a vendor or internal tech; include access notes and attach photos; Save."
+        ],
+        "best_practices": [
+          "Include clear scope and access instructions to reduce follow-ups.",
+          "Use priorities and due dates so scheduling reflects urgency accurately."
+        ]
+      },
+      {
+        "topic": "Recurring Work Orders",
+        "explanation": "Use recurring work orders for routine services (e.g., landscaping, pool cleaning, common-area janitorial).",
+        "examples": [
+          "Monthly landscape service with Friday cadence.",
+          "Quarterly HVAC filter changes across multiple units."
+        ],
+        "solution": [
+          "From the property **Green Actions** menu select **New Recurring Work Order**.",
+          "Define frequency, start date, and assignee/vendor; Save."
+        ],
+        "best_practices": [
+          "Use a clear naming convention including frequency and area serviced.",
+          "Attach service checklists so each recurrence follows the same standard."
+        ]
+      },
+      {
+        "topic": "Inspections & Files in Maintenance Workflow",
+        "explanation": "Inspection findings often generate work orders; related reports/photos should live in Files for reference.",
+        "examples": [
+          "Creating a work order from a failed smoke detector noted in an inspection.",
+          "Attaching inspection PDF to the work order."
+        ],
+        "solution": [
+          "Review **Inspections** for recent findings; create a work order from the property Actions menu with references to the inspection.",
+          "Upload photos/reports under **Files** and link to the work order."
+        ],
+        "best_practices": [
+          "Keep inspection artifacts organized so vendors have all context.",
+          "Close the loop by updating the inspection follow-up status after work order completion."
+        ]
+      }
+    ]
+  }
+}
