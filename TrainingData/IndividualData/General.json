@@ -1,0 +1,16 @@
+{
+    "Rentvine_General_Training": {
+        "topics": [
+            {
+                "topic": "Response syntax",
+                "explanation": "do not include any text from your reasoning, what you are communicating should be exactly what the customer reads. ESPECIALLY DO NOT INCLUDE THE RESPONSES INDEX",
+                "examples": [
+                    "Incorrect Response: '1/5…] The rest…..??…….?…...… ……………?……………………………………………………\n\n\n\nWe need to respond helpfully. Customer just said \"hi.\" We can ask how help.Hello! 👋 How can I assist you today? If you have any questions about the property, lease details, or anything else, feel free to let me know!' Instead your response should only be: '👋 How can I assist you today? If you have any questions about the property, lease details, or anything else, feel free to let me know'",
+                    "Incorrect Response: '2/5…]Hello! 👋 How can I help you today? If you have any questions about the property details or anything else, just let me know and I'll get right on it.' Instead the correct response will be: '👋 How can I help you today? If you have any questions about the property details or anything else, just let me know and I'll get right on it.' For future responses do not include any index or non alpha numeric information",
+                    "Incorrect Response: '2/5…]Hello! 👋 How can I assist you today? If you have any questions about the property, lease details, or anything else, feel free to let me know.' Instead the correct response would be: 'Hello! 👋 How can I assist you today? If you have any questions about the property, lease details, or anything else, feel free to let me know.' For future responses do not include the response index"
+
+                ]
+            }
+        ]
+    }
+}

@@ -1,13 +1,36 @@
 *****Endpoints needed*****
 
 Maintenance:
-
-Portfolios:
-- 
-
+    Work orders:
+        - API URL: https://123pm.rentvine.com/api/manager/maintenance/work-orders/5424?includes=vendor%2CvendorTrade%2Cproperty%2Cunit%2Cbills%2Cassignees%2Cportfolio%2CportfolioBalances%2Cowners%2Clease%2CleaseBalances%2CleaseTenants%2Cinspection%2CworkOrderProject%2Cassociations%2Cinspection%2Creview
+        - Web URL: https://123pm.rentvine.com/maintenance/work-orders/5424
+    Inspection: 
+        - API URL: https://123pm.rentvine.com/api/manager/maintenance/inspections/814?includes=areas%2Citems%2Cfiles%2Cunit%2Clease%2Cproperty
+        - Web URL: https://123pm.rentvine.com/maintenance/inspections/814
+    Projects:
+        - API URL: https://123pm.rentvine.com/api/manager/maintenance/work-orders/projects/151?includes=assignedToUser%2Cproperty%2Cunit%2Crestrictions
+        - Web URL: https://123pm.rentvine.com/maintenance/projects/151
 
 Diagnostics:
+- API URL: https://123pm.rentvine.com/api/manager/accounting/accounts //GL accounts
+- API URL: https://123pm.rentvine.com/api/manager/accounting/diagnostics //actual diagnostics
+- Web URL: https://123pm.rentvine.com/accounting/diagnostics
 
 Properties:
+- API URL: https://123pm.rentvine.com/api/manager/properties/245?includes=applicationTemplate%2Cimage%2Cunit%2Clease%2Cportfolios%2Clisting%2Cappliances%2CmanagementFeeSetting%2Cassociations%2CpropertyManager%2CpastLeases%2CfutureLeases%2Cowners
+- Web URL: https://123pm.rentvine.com/properties/245
 
 Screening:
+    Applications:
+        - API URL: https://123pm.rentvine.com/api/manager/screening/applications/1638?includes=applicants%2Clease%2Creports%2Cgroup%2CcreditReportDocument%2CcriminalReportDocument%2CevictionReportDocument%2Cprospect%2Canimals
+        - Web URL: https://123pm.rentvine.com/screening/applications/1638
+    Prospects:
+        - API URL: https://123pm.rentvine.com/api/manager/screening/prospects/114?includes=contact%2Cunit%2Cinvitation%2Cstatus
+        - Web URL: https://123pm.rentvine.com/screening/prospects/114
+    Payments:
+        - API URL: https://123pm.rentvine.com/api/manager/screening/payments/1?includes=applicant%2Capplication%2Crefunds
+        - Web URL: https://123pm.rentvine.com/screening/payments/1
+
+Portfolios:
+- API URL: https://123pm.rentvine.com/api/manager/portfolios/338?includes=owners%2Cproperties%2Cposting%2CstatementSetting%2Cledger
+- API URL: https://123pm.rentvine.com/api/manager/accounting/ledgers/976?includes=balances

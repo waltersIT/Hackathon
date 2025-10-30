@@ -7,6 +7,8 @@ from dotenv import load_dotenv, set_key
 import os
 from werkzeug.serving import make_server
 import threading
+from promptParsing import chunk_for_lm_studio
+from apiRoutes import fetch_api_responses
 
 # Load .env vars
 load_dotenv()
@@ -16,15 +18,13 @@ password = os.getenv("API_PASSWORD")
 base_url = os.getenv("API_URL")
 
 # Frontend origins allowed to call your API
-ALLOWED_ORIGINS = {"http://localhost:5173", "http://127.0.0.1:5173"}
+ALLOWED_ORIGINS = {"https://abchomes.rentvinedev.com"}
 FRONTEND_BUILD_DIR = os.path.join(os.path.dirname(__file__), "..", "hackathonfe", "dist")
 
 # Flask app
 app = Flask(__name__,
     static_folder=FRONTEND_BUILD_DIR
 )
-
-
 
 # Enable CORS for /api/* routes; we'll still add precise headers below
 CORS(
@@ -34,17 +34,6 @@ CORS(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-def getApiData(full_url: str):
-    # Parse path off the frontend origin (adjust if you change your frontend host)
-    p = urlparse(full_url or "")
-    path = p.path or "/"
-    if p.query:
-        path += f"?{p.query}"
-    # now path is like "/portfolios/351?x=y"
-    app_response = requests.get(f"{base_url}{path}", auth=(username, password))
-    app_response.raise_for_status()
-    return json.dumps(app_response.json(), indent=2)
-    
 @app.after_request
 def add_cors_headers(response):
     """
@@ -76,12 +65,39 @@ def query():
         if not question:
             return jsonify({"error": "Missing question"}), 400
 
-        # Rentvine API call
-        url = (data.get("url") or "").strip()
-        formatted_data = getApiData(url)
-        print("API fetched successfully")
+        # Rentvine API call - fetch_api_responses handles the API call(s) and returns JSON string
+        print("stripping url")
+        url = (data.get("url")).strip()
+        print("url stripped")
+        print("fetching api data")
+        api_data = fetch_api_responses(url, username=username, password=password)
+        print("api data fetched")
+        #chuncks API data
+        parts = chunk_for_lm_studio(api_data, max_tokens=2000, reserve_tokens=600, overlap_tokens=64)
+        print("API Response chunked")
+        messages = [
+                    {"role": "system", "content": f"You are a helpful customer support assistant. Here is the customers question: {question}. You will receive the context for this prompt in the following messages."},
+                ]
+        print("Messages initialized")
+        cnt = 0
+        for p in parts:
+            cnt = cnt + 1
+            messages.append({
+                "role": "user",
+                "content": f"[PART {p['index']+1}/{p['total']}] SHA256={p['sha256']}\n{p['content']}"
+            })
+        print("Messages added")
+        print("parts: ", parts)
+        messages.append({
+            "role": "user",
+            "content": f"Here is the chat history: {data.get("history")}"
+            })
+        print("history added")
 
-        # Prepare message for LM Studio
+        """
+        Please note that this will be refactored to use the lmstudio client instead of the requests library. This is a temporary solution to get the project running, as we were toying with different LLM platforms and API's
+        """
+
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
@@ -89,14 +105,13 @@ def query():
         }
         payload = {
             "model": "openai/gpt-oss-20b",
-            "messages": [
-                {"role": "system", "content": "You are a helpful customer support assistant."},
-                {"role": "user", "content": f"Here is the user's account info from the app API:\n\n{formatted_data}\n\nNow answer this support question:\n{question}"}
-            ],
+            "messages": messages,
             "temperature": 0.5
         }
-
+        print("sending request")
         lm_response = requests.post(lm_studio_url, headers=headers, json=payload)
+        print("count: ", cnt)
+        print("awaiting status and response")
         lm_response.raise_for_status()
         lm_data = lm_response.json()
 
@@ -113,8 +128,8 @@ def query():
         return jsonify({"error": str(e)}), 500
 
 
-# 🟢 Serve React frontend for all non-API routes
-
+# Serve react's static pages from the backend. Not using for demo 
+"""
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
@@ -125,14 +140,13 @@ def serve_react(path):
     else:
         # Serve the React index.html for any other route
         return send_from_directory(app.static_folder, 'index.html')
-
-
+"""
 
 if __name__ == "__main__":
     def run_app():
-        # Create the server, letting it pick any open port
-        server = make_server("127.0.0.1", 0, app)  # 0 = auto-assign
-        port = server.server_port                 # :white_check_mark: real assigned port
+        # Create the server on port 5000
+        port = 5000
+        server = make_server("127.0.0.1", port, app)
         app.config["PORT"] = port
         print(f":white_check_mark: Server running on http://127.0.0.1:{port}")
         env_path = os.path.join(os.path.dirname(__name__), "..", "hackathonFE", ".env")
