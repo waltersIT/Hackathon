@@ -87,6 +87,7 @@ def query():
                 "content": f"[PART {p['index']+1}/{p['total']}] SHA256={p['sha256']}\n{p['content']}"
             })
         print("Messages added")
+        print("parts: ", parts)
         messages.append({
             "role": "user",
             "content": f"Here is the chat history: {data.get("history")}"

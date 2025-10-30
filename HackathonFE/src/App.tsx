@@ -1,5 +1,5 @@
 
-import VinnyLauncher from './components/VinnyLauncher'
+
 import './App.css'
 
 function App() {
@@ -12,7 +12,8 @@ function App() {
         </p>
       </div>
       {/*launcher modal */}
-      <VinnyLauncher />
+      <a href="localhost:5173/portfolios/351">Test portfolio 351</a>
+      <a href="localhost:5173/portfolios/297">Test portfolio 297</a>
     </div>
   );
 }
