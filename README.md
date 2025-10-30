@@ -1,6 +1,9 @@
 # Rentvine AI Assistant - Vinny
-
+Date Modified: 10/30/2025
 ---
+TODO:
+1. refactor for lmstudio sdk
+2. build out RAG for passing knowledge base data to correspond to each page
 
 ## IMPORTANT DISCLAIMER
 
@@ -113,6 +116,7 @@ If you prefer to set up manually:
    - Ensure LM Studio is installed and running
    - Load a model (default: openai/gpt-oss-20b)
    - Start the local server on port 1234
+   - Load in the preset using this import link: 
 
 3. **Start the backend:**
    ```bash
