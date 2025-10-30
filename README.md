@@ -33,7 +33,7 @@ Vinny is a contextual AI assistant that helps users navigate and understand thei
 The project consists of two main components:
 
 - **Backend (HackathonBE)**: Flask API server that handles API routing, data fetching from Rentvine, prompt chunking, and communication with LM Studio
-- **Frontend**: React chat widget (JavaScript) that is hosted within Rentvine's development environment on皮革 the `support-hackathon` branch. The `HackathonFE` directory contains TypeScript source code for development and testing purposes, but the actual frontend components deployed in the Rentvine codebase at `apps/manager/src/components/vinny/` in the `support-hackathon` branch are JavaScript (`.js`) files.
+- **Frontend**: React chat widget (JavaScript) that is hosted within Rentvine's development environment on the `support-hackathon` branch. The `HackathonFE` directory contains TypeScript source code for development and testing purposes, but the actual frontend components deployed in the Rentvine codebase at `apps/manager/src/components/vinny/` in the `support-hackathon` branch are JavaScript (`.js`) files.
 
 ## Technology Stack
 
@@ -122,11 +122,12 @@ If you prefer to set up manually:
    Backend runs on http://127.0.0.1:5000
 
 4. **Frontend Deployment:**
-   The frontend is hosted within Rentvine's development environment. The frontend components are located in the Rentvine codebase at `apps/manager/src/components/vinny/`. To use the frontend:
+   The frontend is hosted within Rentvine's development environment on the `support-hackathon` branch. The frontend components are located in the Rentvine codebase at `apps/manager/src/components/vinny/` in the `support-hackathon` branch. To use the frontend:
+   - Check out the `support-hackathon` branch in the Rentvine repository
    - Access the Rentvine development environment where the Vinny widget is deployed
    - The widget will communicate with the backend API running on http://127.0.0.1:5000
    
-   Note: The `HackathonFE` directory contains the frontend source code for reference and testing, but the actual implementation is handled through Rentvine's development infrastructure.
+   Note: The `HackathonFE` directory contains the frontend source code for reference and testing, but the actual implementation is handled through Rentvine's development infrastructure on the `support-hackathon` branch.
 
 ## Project Structure
 
@@ -165,7 +166,7 @@ Hackathon/
 The frontend components are deployed in Rentvine's development environment on the `support-hackathon` branch:
 
 ```
-support-hackathon branch/
+(support-hackathon branch)
 apps/manager/src/components/vinny/
 ├── assets/
 │   ├── easterEgg.png
@@ -251,7 +252,7 @@ The React frontend includes:
 - Chat history persistence
 - Responsive UI design
 
-The frontend source code in `HackathonFE/` is written in TypeScript (`.tsx` files), but the actual frontend components deployed in Rentvine's development environment at `apps/manager/src/components/vinny/` are JavaScript (`.js` files). The deployment is handled through Rentvine's development infrastructure.
+The frontend source code in `HackathonFE/` is written in TypeScript (`.tsx` files), but the actual frontend components deployed in Rentvine's development environment on the `support-hackathon` branch at `apps/manager/src/components/vinny/` are JavaScript (`.js` files). The deployment is handled through Rentvine's development infrastructure.
 
 ## Configuration
 
