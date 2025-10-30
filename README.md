@@ -1,5 +1,27 @@
 # Rentvine AI Assistant - Vinny
 
+---
+
+## IMPORTANT DISCLAIMER
+
+**This application will ONLY work on the specific web URL pages documented in `HackathonBE/Notes.txt`.**
+
+The Vinny AI assistant is configured to work exclusively with the following page types and URL patterns:
+
+- **Maintenance Work Orders**: `/maintenance/work-orders/{id}`
+- **Maintenance Inspections**: `/maintenance/inspections/{id}`
+- **Maintenance Projects**: `/maintenance/projects/{id}`
+- **Properties**: `/properties/{id}`
+- **Screening Applications**: `/screening/applications/{id}`
+- **Screening Prospects**: `/screening/prospects/{id}`
+- **Screening Payments**: `/screening/payments/{id}`
+- **Portfolios**: `/portfolios/{id}`
+- **Accounting Diagnostics**: `/accounting/diagnostics`
+
+**The assistant will NOT function correctly on any other pages.** For the complete list of supported endpoints and their exact URL patterns, please refer to `HackathonBE/Notes.txt`.
+
+---
+
 An intelligent customer support assistant that integrates with the Rentvine property management platform. Vinny provides context-aware responses by analyzing the current page context and fetching relevant data from the Rentvine API, then uses LM Studio for AI-powered conversational responses.
 
 ## Overview
@@ -11,7 +33,7 @@ Vinny is a contextual AI assistant that helps users navigate and understand thei
 The project consists of two main components:
 
 - **Backend (HackathonBE)**: Flask API server that handles API routing, data fetching from Rentvine, prompt chunking, and communication with LM Studio
-- **Frontend (HackathonFE)**: React + TypeScript application with a chat widget that can be embedded in Rentvine pages
+- **Frontend**: React chat widget (JavaScript) that is hosted within Rentvine's development environment on皮革 the `support-hackathon` branch. The `HackathonFE` directory contains TypeScript source code for development and testing purposes, but the actual frontend components deployed in the Rentvine codebase at `apps/manager/src/components/vinny/` in the `support-hackathon` branch are JavaScript (`.js`) files.
 
 ## Technology Stack
 
@@ -24,10 +46,8 @@ The project consists of two main components:
 - Python-dotenv for environment configuration
 
 ### Frontend
-- React 19.1.1
-- TypeScript
-- Vite 7.1.9
-- React Router DOM 7.9.4
+- React (JavaScript)
+- Chat widget components deployed in Rentvine's manager application
 
 ### AI
 - LM Studio (local LLM server)
@@ -38,9 +58,9 @@ The project consists of two main components:
 Before running the application, ensure you have the following installed:
 
 - Python 3.13 or higher
-- Node.js and npm
 - LM Studio installed and running locally on port 1234
 - Access to Rentvine API credentials
+- Access to Rentvine's development environment (for frontend deployment)
 
 ## Setup
 
@@ -70,12 +90,13 @@ chmod +x run.sh
 ```
 
 These scripts will:
-1. Check for required dependencies (Python, Node.js)
+1. Check for required dependencies (Python)
 2. Create a Python virtual environment if it doesn't exist
 3. Install all Python dependencies
-4. Install frontend dependencies
-5. Start both the backend and frontend servers
-6. Handle graceful shutdown on Ctrl+C
+4. Start the backend server
+5. Handle graceful shutdown on Ctrl+C
+
+Note: The frontend is hosted separately in Rentvine's development environment on the `support-hackathon` branch, not through these scripts.
 
 ### Manual Setup
 
@@ -88,30 +109,24 @@ If you prefer to set up manually:
    pip install -r requirements.txt
    ```
 
-2. **Set up frontend:**
-   ```bash
-   cd HackathonFE
-   npm install
-   ```
-
-3. **Start LM Studio:**
+2. **Start LM Studio:**
    - Ensure LM Studio is installed and running
    - Load a model (default: openai/gpt-oss-20b)
    - Start the local server on port 1234
 
-4. **Start the backend:**
+3. **Start the backend:**
    ```bash
    cd HackathonBE
    python app.py
    ```
    Backend runs on http://127.0.0.1:5000
 
-5. **Start the frontend:**
-   ```bash
-   cd HackathonFE
-   npm run dev
-   ```
-   Frontend runs on http://localhost:5173
+4. **Frontend Deployment:**
+   The frontend is hosted within Rentvine's development environment. The frontend components are located in the Rentvine codebase at `apps/manager/src/components/vinny/`. To use the frontend:
+   - Access the Rentvine development environment where the Vinny widget is deployed
+   - The widget will communicate with the backend API running on http://127.0.0.1:5000
+   
+   Note: The `HackathonFE` directory contains the frontend source code for reference and testing, but the actual implementation is handled through Rentvine's development infrastructure.
 
 ## Project Structure
 
@@ -122,14 +137,14 @@ Hackathon/
 │   ├── apiRoutes.py          # URL-to-API mapping and data fetching
 │   ├── promptParsing.py      # Token-aware chunking for LM Studio
 │   └── test.py               # Test utilities
-├── HackathonFE/              # Frontend React application
+├── HackathonFE/              # Frontend React application (development/testing)
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── VinnyLauncher.tsx    # Chat launcher button
 │   │   │   └── VinnyWidget.tsx      # Main chat widget component
 │   │   ├── test-pages/              # Test portfolio pages
 │   │   └── App.tsx                  # Main application component
-│   └── package.json
+│   └── package.json                 # Note: Frontend is actually deployed in Rentvine's dev environment
 ├── TrainingData/             # AI training context data
 │   ├── IndividualData/       # Category-specific training data
 │   │   ├── Accounting.json
@@ -144,6 +159,24 @@ Hackathon/
 ├── run.sh                    # Setup and run script (macOS/Linux)
 └── run.ps1                   # Setup and run script (Windows)
 ```
+
+### Frontend Deployment Location
+
+The frontend components are deployed in Rentvine's development environment on the `support-hackathon` branch:
+
+```
+support-hackathon branch/
+apps/manager/src/components/vinny/
+├── assets/
+│   ├── easterEgg.png
+│   ├── vinny.png
+│   └── vinnyFinal.gif
+├── Hackathon.css (499 lines)
+├── VinnyLauncher.js (87 lines)
+└── VinnyWidget.js (364 lines)
+```
+
+The frontend runs as part of Rentvine's manager application and communicates with the backend API.
 
 ## API Routes
 
@@ -218,11 +251,7 @@ The React frontend includes:
 - Chat history persistence
 - Responsive UI design
 
-### Testing
-
-Test pages are available at:
-- http://localhost:5173/portfolios/351
-- http://localhost:5173/portfolios/297
+The frontend source code in `HackathonFE/` is written in TypeScript (`.tsx` files), but the actual frontend components deployed in Rentvine's development environment at `apps/manager/src/components/vinny/` are JavaScript (`.js` files). The deployment is handled through Rentvine's development infrastructure.
 
 ## Configuration
 
@@ -243,10 +272,12 @@ Update `ALLOWED_ORIGINS` in `HackathonBE/app.py` to include your production doma
 - Check that all dependencies are installed: `pip install -r requirements.txt`
 - Verify environment variables are set in `.env` file
 
-### Frontend won't start
-- Ensure Node.js is installed
-- Run `npm install` in the `HackathonFE` directory
-- Check that port 5173 is available
+### Frontend issues
+- The frontend is hosted in Rentvine's development environment on the `support-hackathon` branch
+- Verify that you are on the `support-hackathon` branch in the Rentvine repository
+- Verify that the frontend components are properly deployed in the Rentvine codebase
+- Check that the Rentvine development server is running
+- Ensure the frontend is configured to communicate with the backend at http://127.0.0.1:5000
 
 ### AI responses not working
 - Verify LM Studio is running on port 1234

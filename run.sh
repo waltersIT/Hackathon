@@ -4,17 +4,11 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
 
-echo "🚀 Setting up and starting Hackathon application..."
+echo "🚀 Setting up and starting Hackathon backend..."
 
 # Check if Python 3 is installed
 if ! command -v python3 &> /dev/null; then
     echo "❌ Python 3 is not installed. Please install Python 3 first."
-    exit 1
-fi
-
-# Check if Node.js is installed
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed. Please install Node.js first."
     exit 1
 fi
 
@@ -32,19 +26,11 @@ source venv/bin/activate
 echo "📥 Installing Python dependencies..."
 pip install -r requirements.txt
 
-# Install frontend dependencies if node_modules doesn't exist
-if [ ! -d "HackathonFE/node_modules" ]; then
-    echo "📥 Installing frontend dependencies..."
-    cd HackathonFE
-    npm install
-    cd ..
-fi
-
 # Create a function to handle cleanup on exit
 cleanup() {
     echo ""
-    echo "🛑 Shutting down servers..."
-    kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
+    echo "🛑 Shutting down server..."
+    kill $BACKEND_PID 2>/dev/null
     exit
 }
 
@@ -58,22 +44,11 @@ cd HackathonBE
 BACKEND_PID=$!
 cd ..
 
-# Wait a moment for backend to start
-sleep 2
-
-# Start frontend server
-echo "⚛️  Starting frontend server on http://localhost:5173..."
-cd HackathonFE
-npm run dev &
-FRONTEND_PID=$!
-cd ..
-
 echo ""
 echo "✅ Setup complete!"
-echo "🌐 Frontend: http://localhost:5173"
-echo "🔧 Backend:  http://127.0.0.1:5000"
+echo "🔧 Backend: http://127.0.0.1:5000"
 echo ""
-echo "Press Ctrl+C to stop both servers..."
+echo "Press Ctrl+C to stop the server..."
 
-# Wait for processes
-wait $BACKEND_PID $FRONTEND_PID
+# Wait for backend process
+wait $BACKEND_PID
