@@ -9,11 +9,12 @@ function App() {
         <h2>Vinny Frontend Preview</h2>
         <p>
           Support Team for the Win!
+          <br />
+          <a href="/portfolios/351">Test portfolio 351</a>
+          <br />
+          <a href="/portfolios/297">Test portfolio 297</a>
         </p>
       </div>
-      {/*launcher modal */}
-      <a href="localhost:5173/portfolios/351">Test portfolio 351</a>
-      <a href="localhost:5173/portfolios/297">Test portfolio 297</a>
     </div>
   );
 }

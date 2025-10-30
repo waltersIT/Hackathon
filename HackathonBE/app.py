@@ -93,6 +93,11 @@ def query():
             "content": f"Here is the chat history: {data.get("history")}"
             })
         print("history added")
+
+        """
+        Please note that this will be refactored to use the lmstudio client instead of the requests library. This is a temporary solution to get the project running, as we were toying with different LLM platforms and API's
+        """
+
         lm_studio_url = "http://localhost:1234/v1/chat/completions"
         headers = {
             "Content-Type": "application/json",
